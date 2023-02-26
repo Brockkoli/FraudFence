@@ -59,8 +59,8 @@ def scan(ip,port):
         scanner.close()
         with print_lock:
             print("{}\t\t{}\t\tOpen".format(ipAddr, port))
-    except:
-        pass
+    except KeyboardInterrupt:
+        print("Exiting program...")
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
     # scan ports from txt file
