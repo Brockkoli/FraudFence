@@ -55,10 +55,15 @@ def scan(ip,port):
     scanner.settimeout(1)
 
     try:
-        scanner.connect((ip,port))
+        scanresult = scanner.connect_ex((ip,port))
         scanner.close()
+
+        # only one thread can access print output oaat
         with print_lock:
-            print("{}\t\t{}\t\tOpen".format(ipAddr, port))
+            if scanresult == 0:
+                print("{}\t\t{}\t\tOpen".format(ipAddr, port))
+            else:
+                print("{}\t\t{}\t\tClosed".format(ipAddr, port))
     except KeyboardInterrupt:
         print("Exiting program...")
 
