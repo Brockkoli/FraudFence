@@ -3,6 +3,9 @@ import socket
 import concurrent.futures
 import argparse
 import threading
+import colorama
+
+colorama.init()
 
 # temporary parser to test port scanning cli, will change at main.py
 parser = argparse.ArgumentParser(prog='portscan.py', usage='%(prog)s [Target] [Port]', epilog="Example: python portscan.py 192.168.1.1 1-10000")
@@ -60,10 +63,14 @@ def scan(ip,port):
 
         # only one thread can access print output oaat
         with print_lock:
+
+            # open ports
             if scanresult == 0:
-                print("{}\t\t{}\t\tOpen".format(ipAddr, port))
+                print(colorama.Fore.GREEN + "{}\t\t{}\t\tOpen".format(ipAddr, port) + colorama.Style.RESET_ALL)
+            
+            #closed ports
             else:
-                print("{}\t\t{}\t\tClosed".format(ipAddr, port))
+                print(colorama.Fore.RED + "{}\t\t{}\t\tClosed".format(ipAddr, port) + colorama.Style.RESET_ALL)
     except KeyboardInterrupt:
         print("Exiting program...")
 
