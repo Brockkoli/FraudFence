@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from whois import whois
 import colorama
+import datetime
 
 colorama.init()
 
@@ -22,7 +23,7 @@ if response.status_code == 200:
     # get the description of the website
     description = soup.find("meta", attrs={"name": "description"})
     if description:
-        print("* Description:", description["content"] + "*")
+        print("Description:", description["content"])
     
 
     # get the WHOIS information of the website
@@ -30,13 +31,37 @@ if response.status_code == 200:
     whois_info = whois(domain)
     print("Registrar:", whois_info.registrar)
     print(colorama.Fore.YELLOW + "*" * 30  + colorama.Style.RESET_ALL)
-    creation_date = [date.strftime('%d-%B-%Y') for date in whois_info.creation_date]
-    expiration_date = [date.strftime('%d-%B-%Y') for date in whois_info.expiration_date]
+    
+    if whois_info.creation_date:
+        creation_date = [date.strftime('%d-%B-%Y') for date in whois_info.creation_date]
+        # {:<18}" - left-align the string within an 18-character-wide column
+        # join() method joins the list elements with a comma and space
+        print(colorama.Fore.GREEN + "{:<18} {}".format("Creation Date:", ", ".join(creation_date)))
+    else:
+        print("Creation date not available.")
+    
+    if whois_info.expiration_date:
+        expiration_date = [date.strftime('%d-%B-%Y') for date in whois_info.expiration_date]
+        print(colorama.Fore.RED + "{:<18} {}".format("Expiration Date:", ", ".join(expiration_date)))
+        print(colorama.Fore.YELLOW + "-" * 30 + colorama.Style.RESET_ALL)
+    else:
+        print("Expiration date not available.")
 
-    # {:<18}" - left-align the string within an 18-character-wide column
-    # join() method joins the list elements with a comma and space
-    print(colorama.Fore.GREEN + "{:<18} {}".format("Creation Date:", ", ".join(creation_date)))
-    print(colorama.Fore.RED + "{:<18} {}".format("Expiration Date:", ", ".join(expiration_date)))
+    # Name Servers
+    if whois_info.name_servers:
+        print("Name Servers:")
+        for ns in whois_info.name_servers:
+            print("\t", ns)
+
+    # Registrant Information
+    if whois_info.name:
+        print('Registrant name:', whois_info.name)
+
+    if whois_info.email:
+        print('Registrant email:', whois_info.email)
+
+    if whois_info.address:
+        print('Registrant address:', whois_info.address)
 else:
     print("Error:", response.status_code)
     
