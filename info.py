@@ -7,7 +7,7 @@ import datetime
 colorama.init()
 
 # make a request to the website
-url = "https://www.google.com"
+url = "https://www.singaporetech.edu.sg"
 response = requests.get(url)
 
 # check the status code of the response
@@ -33,10 +33,14 @@ if response.status_code == 200:
     print(colorama.Fore.YELLOW + "*" * 30  + colorama.Style.RESET_ALL)
     
     if whois_info.creation_date:
-        creation_date = [date.strftime('%d-%B-%Y') for date in whois_info.creation_date]
-        # {:<18}" - left-align the string within an 18-character-wide column
-        # join() method joins the list elements with a comma and space
-        print(colorama.Fore.GREEN + "{:<18} {}".format("Creation Date:", ", ".join(creation_date)))
+        try:
+            creation_date = [date.strftime('%d-%B-%Y') for date in whois_info.creation_date]
+            print(colorama.Fore.GREEN + "{:<18} {}".format("Creation Date:", ", ".join(creation_date)))
+        except:
+            creation_date = [whois_info.creation_date.strftime('%d-%B-%Y')]
+            # {:<18}" - left-align the string within an 18-character-wide column
+            # join() method joins the list elements with a comma and space
+            print(colorama.Fore.GREEN + "{:<18} {}".format("Creation Date:", ", ".join(creation_date)))
     else:
         print("Creation date not available.")
     
