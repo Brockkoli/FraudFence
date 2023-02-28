@@ -4,6 +4,13 @@
 Web analysis tool 
 
 - Whois
+  - Title
+  - Description
+  - Registrar
+  - Creation date
+  - Expiration date
+  - Name servers
+  - Registrant name, email, address
 - DNS Lookup
   - A record
   - AAAA record
