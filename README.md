@@ -5,6 +5,14 @@ Web analysis tool
 
 - Whois
 - DNS Lookup
+  - A record
+  - AAAA record
+  - ANY record
+  - CAA record
+  - CNAME record
+  - MX record
+  - NS record
+  - TXT record
 - Port enumeration
   - Full scan: 1 to 65535
   - Default: 1000 most popular port number
