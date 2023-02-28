@@ -4,7 +4,7 @@
 Web analysis tool 
 
 - Whois
-- DNS
+- DNS Lookup
 - Port enumeration
   - Full scan: 1 to 65535
   - Default: 1000 most popular port number
