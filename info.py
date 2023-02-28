@@ -7,7 +7,7 @@ import datetime
 colorama.init()
 
 # make a request to the website
-url = "https://www.singaporetech.edu.sg"
+url = "https://www.y8.com"
 response = requests.get(url)
 
 # check the status code of the response
@@ -21,9 +21,12 @@ if response.status_code == 200:
     print("Title:", title)
 
     # get the description of the website
-    description = soup.find("meta", attrs={"name": "description"})
-    if description:
-        print("Description:", description["content"])
+    try:
+        description = soup.find("meta", attrs={"name": "description"})
+        if description:
+            print("Description:", description["content"])
+    except:
+        print("Closing socket.")
     
 
     # get the WHOIS information of the website
@@ -45,9 +48,14 @@ if response.status_code == 200:
         print("Creation date not available.")
     
     if whois_info.expiration_date:
-        expiration_date = [date.strftime('%d-%B-%Y') for date in whois_info.expiration_date]
-        print(colorama.Fore.RED + "{:<18} {}".format("Expiration Date:", ", ".join(expiration_date)))
-        print(colorama.Fore.YELLOW + "-" * 30 + colorama.Style.RESET_ALL)
+        try:
+            expiration_date = [date.strftime('%d-%B-%Y') for date in whois_info.expiration_date]
+            print(colorama.Fore.RED + "{:<18} {}".format("Expiration Date:", ", ".join(expiration_date)))
+            print(colorama.Fore.YELLOW + "-" * 30 + colorama.Style.RESET_ALL)
+        except:
+            expiration_date = [whois_info.expiration_date.strftime('%d-%B-%Y')]
+            print(colorama.Fore.RED + "{:<18} {}".format("Expiration Date:", ", ".join(expiration_date)))
+            print(colorama.Fore.YELLOW + "-" * 30 + colorama.Style.RESET_ALL)
     else:
         print("Expiration date not available.")
 
@@ -56,6 +64,8 @@ if response.status_code == 200:
         print("Name Servers:")
         for ns in whois_info.name_servers:
             print("\t", ns)
+
+    print(colorama.Fore.YELLOW + "-" * 30 + colorama.Style.RESET_ALL)
 
     # Registrant Information
     if whois_info.name:
@@ -66,6 +76,8 @@ if response.status_code == 200:
 
     if whois_info.address:
         print('Registrant address:', whois_info.address)
+
+    print(colorama.Fore.YELLOW + "-" * 30 + colorama.Style.RESET_ALL)
 else:
     print("Error:", response.status_code)
     
