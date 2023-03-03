@@ -1,17 +1,73 @@
 //WOT Web Risk and Safe browsing
 
-const fetch = require('node-fetch'); // Import the node-fetch library
-const url = "https://www.google.com"
+//const readline = require('readline').createInterface({
+  //input: process.stdin,
+ // output: process.stdout
+//});
 
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '81c0482df8msh514a1a1beae15f7p1637ccjsnfcaa82735744',
-		'X-RapidAPI-Host': 'wot-web-risk-and-safe-browsing.p.rapidapi.com'
-	}
-};
+//readline.question('Enter your input: ', (input) => {
+  //console.log(`You entered: ${input}`);
+  //readline.close();
+//});
 
-fetch(`https://wot-web-risk-and-safe-browsing.p.rapidapi.com/targets?t=${url}`, options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err))
+
+const url = "https://www.faceb00k.com"
+
+async function fetchData() {
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '81c0482df8msh514a1a1beae15f7p1637ccjsnfcaa82735744',
+      'X-RapidAPI-Host': 'wot-web-risk-and-safe-browsing.p.rapidapi.com'
+    }
+  };
+
+  const res = await fetch(`https://wot-web-risk-and-safe-browsing.p.rapidapi.com/targets?t=${url}`, options)
+  const record = await res.json()
+    .then((data) => {
+      // extract the necessary data from the JSON object
+      const target = data[0].target;
+      const safety = data[0].safety;
+      const childSafety = data[0].childSafety;
+      //const categories = data[0].categories.map(category => category.name).join(', ');
+      const categories = data[0].categories;
+
+    // convert data to json string and display in the HTML page
+    document.getElementById('json-data').innerHTML = `
+      <p>Target: ${target}</p>
+      <p>Safety: ${JSON.stringify(safety)}</p>
+      <p>Child Safety: ${JSON.stringify(childSafety)}</p>
+      <p>Categories: ${JSON.stringify(categories)}</p>
+      `; 
+
+      // iterate elements of objects and display individually
+      document.getElementById('json-data').innerHTML = `
+      <p>Target: ${target}</p>
+      <p>Safety: ${
+        Object.entries(safety)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('<br>')
+      }</p>
+      <p>Child Safety: ${
+        Object.entries(childSafety)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('<br>')
+      }</p>
+      <p>Categories: ${
+        categories
+          .map(category => category.name)
+          .join(', ')
+      }</p>
+    `;
+
+    // for testing
+    console.log(target)
+    console.log(safety)
+    console.log(childSafety)
+    console.log(categories)
+      
+    })
+    .catch((err) => console.error(err));
+  }
+
+  fetchData();
