@@ -26,20 +26,26 @@ async function fetchData() {
   const record = await res.json()
     .then((data) => {
       // extract the necessary data from the JSON object
-      const target = data[0].target;
-      const safety = data[0].safety;
-      const childSafety = data[0].childSafety;
-      //const categories = data[0].categories.map(category => category.name).join(', ');
-      const categories = data[0].categories;
+      if (data && data[0]) {
+          const target = data[0].target;
+          const safety = data[0].safety;
+          const childSafety = data[0].childSafety;
+          //const categories = data[0].categories.map(category => category.name).join(', ');
+          const categories = data[0].categories;
 
-    // convert data to json string and display in the HTML page
-    document.getElementById('json-data').innerHTML = `
-      <p>Target: ${target}</p>
-      <p>Safety: ${JSON.stringify(safety)}</p>
-      <p>Child Safety: ${JSON.stringify(childSafety)}</p>
-      <p>Categories: ${JSON.stringify(categories)}</p>
-      `; 
-
+        // convert data to json string and display in the HTML page
+        document.getElementById('json-data').innerHTML = `
+          <p>Target: ${target}</p>
+          <p>Safety: ${JSON.stringify(safety)}</p>
+          <p>Child Safety: ${JSON.stringify(childSafety)}</p>
+          <p>Categories: ${JSON.stringify(categories)}</p>
+          `; 
+      } else {
+        document.getElementById('json-data').innerHTML = `
+          <p>No data found.</p>
+          `;
+      }
+      /*
       // iterate elements of objects and display individually
       document.getElementById('json-data').innerHTML = `
       <p>Target: ${target}</p>
@@ -59,6 +65,7 @@ async function fetchData() {
           .join(', ')
       }</p>
     `;
+    */
 
     // for testing
     console.log(target)
