@@ -40,3 +40,6 @@ Web analysis tool
             - Reputation - integer between 0-100. The target’s reputation score for safety/child safety.
             - Confidence - integer between 0-100. The confidence WOT’s algorithm attributes to the above score.
             - Each target object also may have a categories array, which contains one or more category identifier attributes, the category friendly name, and their confidence values.
+            
+            ![raw html display](https://user-images.githubusercontent.com/59412437/222772375-6d004d2d-87ff-46b3-9a1f-8b653f17f72d.png)
+
