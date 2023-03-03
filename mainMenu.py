@@ -11,20 +11,35 @@ while fraudFence:
     g = Figlet(font = 'standard')
     print(colored(g.renderText('     FraudFence'),'green'))
     print("Welcome to Fraudfence. Here are some stuff you can do")
-    print("\n1. whois")
-    print("2. port scan")
-    print("3. dns lookup")
-    print("4. exit")
+    print("\n1. Whois")
+    print("2. Port Scan")
+    print("3. DNS Lookup")
+    print("4. Server Location Checker")
+    print("5. Web Header Checker")
+    print("6. SSL Information")
+    print("7. exit")
 
     try:
       fraudFence = input("Choose an option to run: ")
       if fraudFence == "1":
-        print("\nperforming whois...\n")
+        from info import whois_check
+        print("\nperforming Whois...\n")
       elif fraudFence == "2":
-        print("\nperforming port scan...\n")
+        from portscan import portscan_check
+        print("\nperforming Port Scan...\n")
       elif fraudFence == "3":
-        print("\nperforming dns lookup...\n")
+        from dnslookup import dnslookup_check
+        print("\nperforming DNS Lookup...\n")
       elif fraudFence == "4":
+        from locationchecker import serverlocation_check
+        print("\nperforming Server Location Checker...\n")
+      elif fraudFence == "5":
+        from headers import header_check
+        print("\nperforming Web Header Checker...\n")
+      elif fraudFence == "6":
+        from sslinformation import ssl_check
+        print("\nperforming SSL Information...\n")
+      elif fraudFence == "7":
         print("\nThank you for using FraudFence and have a safe Internet experience!") 
         fraudFence = None
       else:
