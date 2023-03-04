@@ -9,15 +9,16 @@
   //console.log(`You entered: ${input}`);
   //readline.close();
 //});
+// const fetch = require('node-fetch');
 
-
-const url = "https://www.faceb00k.com"
+//const url = "http://flirteas.za.com/"
+const url = "http://www.y8.com"
 
 async function fetchData() {
   const options = {
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '81c0482df8msh514a1a1beae15f7p1637ccjsnfcaa82735744',
+      'X-RapidAPI-Key': '39a04747b6msh4609958369c99c5p11cea8jsna440a75be8bc',
       'X-RapidAPI-Host': 'wot-web-risk-and-safe-browsing.p.rapidapi.com'
     }
   };
@@ -26,7 +27,8 @@ async function fetchData() {
   const record = await res.json()
     .then((data) => {
       // extract the necessary data from the JSON object
-      if (data && data[0]) {
+      // if (data && data[0]) {
+      if (data[0]) {
           const target = data[0].target;
           const safety = data[0].safety;
           const childSafety = data[0].childSafety;
@@ -67,11 +69,12 @@ async function fetchData() {
     `;
     */
 
+    /*
     // for testing
     console.log(target)
     console.log(safety)
     console.log(childSafety)
-    console.log(categories)
+    console.log(categories) */
       
     })
     .catch((err) => console.error(err));
