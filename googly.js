@@ -14,7 +14,7 @@ const endpoint = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=
 // Payload data for the API request
 const requestData = {
   client: {
-    clientId: "your-app-name",
+    clientId: "fraudfence",
     clientVersion: "1.0.0",
   },
   threatInfo: {
@@ -40,9 +40,10 @@ fetch(endpoint, {
     if (data.matches) {
       console.log(`${url} is not safe`);
       console.log(data);
+      const threat = data.matches[0].threat;
+      console.log('threat: ', threat);
     } else {
       console.log(`${url} is safe`);
-      console.log(data);
     }
   })
   .catch((error) => {
