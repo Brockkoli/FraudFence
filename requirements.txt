@@ -7,3 +7,5 @@ webbrowser
 folium
 requests
 dnspython
+ipwhois
+traceroute
