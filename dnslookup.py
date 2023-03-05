@@ -1,7 +1,7 @@
 import dns.resolver
 import colorama
 
-domain = "www.y8.com"
+domain = input("Please type in your URL: ")
 
 colorama.init()
 
