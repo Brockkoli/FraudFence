@@ -1,12 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Risk Rating</title>
+    <title>FraudFence Report</title>
     <meta charset="utf-8">
+    <style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.5;
+			background-color: #f5f5f5;
+			color: #333;
+			padding: 20px;
+		}
+
+		h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+			color: #333;
+			text-align: center;
+		}
+
+		.report {
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+
+        .section {
+			margin-bottom: 10px;
+		}
+
+		.section h2 {
+			font-size: 18px;
+			margin-bottom: 10px;
+			color: #333;
+		}
+
+		.section p {
+			margin: 0;
+		}
+
+		.safety {
+			font-weight: bold;
+		}
+
+		.safety--safe {
+			color: green;
+		}
+
+		.safety--unsafe {
+			color: red;
+		}
+
+        .categories {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.categories li {
+			display: inline-block;
+			margin-right: 10px;
+			background-color: #eee;
+			padding: 5px 10px;
+			border-radius: 4px;
+		}
+
+		.categories li.good {
+			background-color: green;
+			color: #fff;
+		}
+
+		.categories li.bad {
+			background-color: red;
+			color: #fff;
+		}
+	</style>
 </head>
 <body>
-    <div id="json-data"></div>
+    <h1>FraudFence Ratings</h1>
+    <div class="report">
+        <h2>Checked against Google Safe Browsing database</h2>
+        <div id="googly" class="section"></div>
 
+        <h2>Checked against Web of Trust (WOT) Machine Learning Algorithms</h2>
+        <div id="webrisk" class="section"></div>
+    <script src="googly.js"></script>
     <script src="webrisk.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 //});
 // const fetch = require('node-fetch');
 
-//const url = "http://flirteas.za.com/"
+// const url = "http://flirteas.za.com/"
 const url = "http://www.y8.com"
 
 async function fetchData() {
@@ -36,14 +36,14 @@ async function fetchData() {
           const categories = data[0].categories;
 
         // convert data to json string and display in the HTML page
-        document.getElementById('json-data').innerHTML = `
+        document.getElementById('webrisk').innerHTML = `
           <p>Target: ${target}</p>
           <p>Safety: ${JSON.stringify(safety)}</p>
           <p>Child Safety: ${JSON.stringify(childSafety)}</p>
           <p>Categories: ${JSON.stringify(categories)}</p>
           `; 
       } else {
-        document.getElementById('json-data').innerHTML = `
+        document.getElementById('webrisk').innerHTML = `
           <p>No data found.</p>
           `;
       }
