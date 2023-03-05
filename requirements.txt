@@ -6,3 +6,4 @@ termcolor
 webbrowser
 folium
 requests
+dnspython
