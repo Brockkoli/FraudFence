@@ -4,18 +4,13 @@ import colorama
 
 domain = input("Please type in your URL: ")
 
-# Check if the URL starts with "http://" or "https://"
-if not domain.startswith("http://") and not domain.startswith("https://"):
-    print("Please include the protocol [http://] or [https://] in the URL.")
-    domain = input("Please type in your URL: ")
+# Remove "http://" or "https://://"
+domain = domain.strip("https://")
+domain = domain.strip("http://")
 
-# Check if "www" is included after "http://" or "https://"
-if "www." not in domain:
-    # Insert "www." after "http://" or "https://"
-    if domain.startswith("http://"):
-        domain = domain.replace("http://", "http://www.")
-    elif domain.startswith("https://"):
-        domain = domain.replace("https://", "https://www.")
+# Remove "www."
+domain = domain.strip("www.")
+
 
 colorama.init()
 
@@ -27,7 +22,7 @@ print(colorama.Fore.YELLOW + "*" * 40 + colorama.Style.RESET_ALL)
 try:
     A_record = dns.resolver.resolve(domain, 'A')
     for ip in A_record:
-        print('A Record:', ip)
+        print('A Record:', ip.to_text())
 except:
     print("No A record found.")
 
