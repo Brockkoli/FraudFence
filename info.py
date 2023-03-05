@@ -7,7 +7,7 @@ import datetime
 colorama.init()
 
 # make a request to the website
-url = "https://www.y8.com"
+url = input("Type in the URL: ")
 response = requests.get(url)
 
 # check the status code of the response
