@@ -1,7 +1,21 @@
 import dns.resolver
 import colorama
 
+
 domain = input("Please type in your URL: ")
+
+# Check if the URL starts with "http://" or "https://"
+if not domain.startswith("http://") and not domain.startswith("https://"):
+    print("Please include the protocol [http://] or [https://] in the URL.")
+    domain = input("Please type in your URL: ")
+
+# Check if "www" is included after "http://" or "https://"
+if "www." not in domain:
+    # Insert "www." after "http://" or "https://"
+    if domain.startswith("http://"):
+        domain = domain.replace("http://", "http://www.")
+    elif domain.startswith("https://"):
+        domain = domain.replace("https://", "https://www.")
 
 colorama.init()
 
