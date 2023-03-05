@@ -1,5 +1,6 @@
 bs4
 whois
+python-whois
 pyfiglet
 termcolor
 webbrowser
