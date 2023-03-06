@@ -1,8 +1,15 @@
 import socket
 from scapy.all import *
+from scapy.layers.inet import ICMP, IP
 
 
 def traceroute(target):
+    # Remove "http://" or "https://://"
+    target = target.strip("https://")
+    target = target.strip("http://")
+    # Remove "www."
+    target = target.strip("www.")
+
     ttl = 1
     print("{:<5} {:<20} {:<30} {:<10}".format("TTL", "IP Address", "Hostname", "RTT (ms)"))
     while True:
@@ -23,6 +30,12 @@ def traceroute(target):
             print("{:<5} {:<20} {:<30} {:<10.4f}".format(ttl, reply.src, resolve(reply.src), reply.time))
         ttl += 1
 
+    checker = input("Do you wish to continue? (Y/N) ")
+    if checker == "y":
+        return True
+    else:
+        return False
+
 
 def resolve(ip_addr):
     # resolve IP address to hostname
@@ -30,16 +43,3 @@ def resolve(ip_addr):
         return socket.gethostbyaddr(ip_addr)[0]
     except socket.herror:
         return ip_addr
-
-
-if __name__ == "__main__":
-    target = input("Enter target URL or IP address: ")
-
-    # Remove "http://" or "https://://"
-    target = target.strip("https://")
-    target = target.strip("http://")
-
-    # Remove "www."
-    target = target.strip("www.")
-
-    traceroute(target)
