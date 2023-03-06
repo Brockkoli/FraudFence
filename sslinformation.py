@@ -1,27 +1,23 @@
-import ssl
 import socket
-from urllib.parse import urlparse
+import ssl
 
-def url_checker(url):
+
+def ssl_checker(url):
+    url = url.strip("https://")
+    url = url.strip("http://")
+
     try:
-        result = urlparse(url)
-        return all([result.scheme, result.netloc])
-    except ValueError:
-        return False
+        context = ssl.create_default_context()
+        with socket.create_connection((url, 443)) as sock:
+            with context.wrap_socket(sock, server_hostname=url) as ssock:
+                cert = ssock.getpeercert()
+                for key, value in cert.items():
+                    print(f"{key}: {value}")
 
-url = input("Enter website URL: ")
-if not url_checker(url):
-    print("Invalid URL. Please enter a valid URL including the scheme (e.g. https://www.example.com)")
-    exit()
-
-url_name = url.split('//')[1].split('/')[0]
-
-try:
-    context = ssl.create_default_context()
-    with socket.create_connection((url_name, 443)) as sock:
-        with context.wrap_socket(sock, server_hostname=url_name) as ssock:
-            cert = ssock.getpeercert()
-            for key, value in cert.items():
-                print(f"{key}: {value}")
-except Exception as e:
-    print(f"Error: {e}")
+        checker = input("Do you wish to continue? (Y/N) ")
+        if checker == "y":
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(f"Error: {e}")
