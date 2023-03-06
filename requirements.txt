@@ -9,3 +9,6 @@ requests
 dnspython
 ipwhois
 traceroute
+asyncio
+tqdm
+httpx
