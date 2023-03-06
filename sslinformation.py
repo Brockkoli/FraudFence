@@ -3,8 +3,13 @@ import ssl
 
 
 def ssl_checker(url):
-    url = url.strip("https://")
-    url = url.strip("http://")
+    if url.startswith("https://" or "http://"):
+        url = url.strip("https://")
+        url = url.strip("http://")
+
+    if not url.startswith("www."):
+            newurl = "www." + url
+            url = newurl
 
     try:
         context = ssl.create_default_context()

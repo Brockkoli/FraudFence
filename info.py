@@ -32,6 +32,7 @@ def whois_check(url):
         # get the WHOIS information of the website
         domain = url.split("//")[-1].split("/")[0]
         whois_info = whois(domain)
+
         print("Registrar:", whois_info.registrar)
         print(colorama.Fore.YELLOW + "*" * 30 + colorama.Style.RESET_ALL)
 
