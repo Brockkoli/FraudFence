@@ -5,10 +5,16 @@ import xml.etree.ElementTree as ET
 url = "https://whoisapi-whois-v2-v1.p.rapidapi.com/whoisserver/WhoisService"
 domain = input("Enter the URL domain: ")
 
-if domain.startswith("https://" or "http://" or "www"):
+if domain.startswith("https://"):
         domain = domain.strip("https://")
+elif domain.startswith("http://"):
         domain = domain.strip("http://")
+elif domain.startswith("www"):     
         domain = domain.strip("www")
+elif domain.startswith("https://www"):     
+        domain = domain.strip("https://www")
+elif domain.startswith("http://www"):     
+        domain = domain.strip("http://www")
 
 querystring = {"domainName":f"{domain}","apiKey":"at_SDpAVjCNg3tXpSyM66qqcKkPyJSTJ","outputFormat":"XML","da":"0","ipwhois":"1","thinWhois":"0","_parse":"0","preferfresh":"0","checkproxydata":"0","ip":"1"}
 
