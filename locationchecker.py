@@ -2,7 +2,9 @@ import webbrowser
 
 import folium
 import requests
+import colorama
 
+colorama.init()
 
 def serverlocationchecker(ip_address):
     # Use online IP geolocation service to get the latlong of the server
@@ -22,6 +24,9 @@ def serverlocationchecker(ip_address):
         # Open the map in a new browser window
         createmap.save('map.html')
         webbrowser.open('map.html')
+
+        print("-" * 50)
+        print(f"Location for " + colorama.Fore.YELLOW + ip_address + colorama.Style.RESET_ALL + " opened in browser.\n")
 
         checker = input("Do you wish to continue? (Y/N) ")
         if checker == "y":

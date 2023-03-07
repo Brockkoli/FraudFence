@@ -4,11 +4,23 @@ import requests
 
 def headers(url):
     colorama.init()
-    print(colorama.Fore.YELLOW + "*" * 50 + colorama.Style.RESET_ALL)
-
+    
     try:
-        if not url.startswith("http"):
-            url = "https://" + url
+        if url.startswith("https://"):
+                url = url.strip("https://")
+        elif url.startswith("http://"):
+                url = url.strip("http://")
+        elif url.startswith("www"):     
+                url = url.strip("www")
+        elif url.startswith("https://www"):     
+                url = url.strip("https://www")
+        elif url.startswith("http://www"):     
+                url = url.strip("http://www")
+        url = "https://www." + url
+
+        print("Header of: " + colorama.Fore.YELLOW + url + colorama.Style.RESET_ALL)
+        print("-" * 50)
+
         response = requests.head(url)
         headers = response.headers
 
@@ -18,7 +30,7 @@ def headers(url):
                 # the join function will print each output in one line
                 value = ', \n'.join(value.split())
             print(f"{colorama.Fore.GREEN + header + colorama.Style.RESET_ALL}: {value}")
-        print(colorama.Fore.YELLOW + "*" * 50 + colorama.Style.RESET_ALL)
+        print("-" * 50)
 
         checker = input("Do you wish to continue? (Y/N) ")
         if checker == "y":

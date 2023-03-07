@@ -1,17 +1,30 @@
 import socket
 from scapy.all import *
 from scapy.layers.inet import ICMP, IP
+import colorama
+
+colorama.init()
 
 
 def traceroute(target):
-    # Remove "http://" or "https://://"
-    target = target.strip("https://")
-    target = target.strip("http://")
-    # Remove "www."
-    target = target.strip("www.")
+
+    if target.startswith("https://"):
+            target = target.strip("https://")
+    elif target.startswith("http://"):
+            target = target.strip("http://")
+    elif target.startswith("www"):     
+            target = target.strip("www")
+    elif target.startswith("https://www"):     
+            target = target.strip("https://www")
+    elif target.startswith("http://www"):     
+            target = target.strip("http://www")
 
     ttl = 1
-    print("{:<5} {:<20} {:<30} {:<10}".format("TTL", "IP Address", "Hostname", "RTT (ms)"))
+
+    print("\nTraceroute for: " + colorama.Fore.YELLOW + target + colorama.Style.RESET_ALL)
+    print("-" * 50)
+
+    print(colorama.Fore.GREEN + "{:<5} {:<20} {:<30} {:<10}".format("TTL", "IP Address", "Hostname", "RTT (ms)" + colorama.Style.RESET_ALL))
     while True:
         # Create an IP packet with the destination and TTL values
         packet = IP(dst=target, ttl=ttl) / ICMP()

@@ -3,18 +3,21 @@ import dns.resolver
 
 
 def dnslookup(domain):
-    # Remove "http://" or "https://"
-    domain = domain.strip("https://")
-    domain = domain.strip("http://")
-
-    # Remove "www."
-    domain = domain.strip("www.")
+    if domain.startswith("https://"):
+        domain = domain.strip("https://")
+    elif domain.startswith("http://"):
+        domain = domain.strip("http://")
+    elif domain.startswith("www"):
+        domain = domain.strip("www.")
+    elif domain.startswith("https://www"):
+        domain = domain.strip("https://www")
+    elif domain.startswith("http://www"):
+        domain = domain.strip("http://www")
 
     colorama.init()
 
-    print(colorama.Fore.YELLOW + "*" * 40 + colorama.Style.RESET_ALL)
-    print("DNS lookup for " + colorama.Fore.GREEN + domain + colorama.Style.RESET_ALL)
-    print(colorama.Fore.YELLOW + "*" * 40 + colorama.Style.RESET_ALL)
+    print("-" * 50)
+    print("DNS lookup for " + colorama.Fore.GREEN + domain + "\n" + colorama.Style.RESET_ALL)
 
     # get A record
     try:
