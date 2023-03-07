@@ -18,10 +18,11 @@ async def main():
         base_url = input("Enter your URL: ")
         if not base_url.endswith('/'):
             base_url += '/'
-        if not base_url.startswith('http://' or 'https://'):
+        if not base_url.startswith(('http://', 'https://')):
             print(colorama.Fore.RED + "Please include the protocol, https:// or http://" + colorama.Style.RESET_ALL)
         else:
             break
+
     wordlist_file = "directory-list-lowercase-2.3-medium.txt" # 220560 lines
     # wordlist_file = "common.txt" # 4616 lines
     tasks = []
