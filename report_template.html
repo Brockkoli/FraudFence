@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FraudFence Report</title>
+    <style>
+        /* Add some CSS styles to make the report look nicer */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        img {
+            max-width: 15%;
+            display: block;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* Add CSS to change the color of the link to blue */
+        a {
+            color: blue;
+        }
+        .table-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="fraudfence.jpg" alt="Example Image">
+            <div class="title">Full Report on: <a href="{{ url }}">{{ url }}</a></div>
+        </header>
+        <div class="content">
+            <h1>Report</h1>
+            {% if ssl_data %}
+            <div class="table-container">
+                <h2>SSL Information</h2>
+                <table>
+                    <tr>
+                        {% for header in ssl_headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for row in ssl_data %}
+                    <tr>
+                        {% for item in row %}
+                        <td>{{ item.value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            {% if http_data %}
+            <div class="table-container">
+                <h2>Headers Information</h2>
+                <table>
+                    <tr>
+                        {% for header in http_headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for row in http_data %}
+                    <tr>
+                        {% for item in row %}
+                        <td>{{ item.value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            {% if not ssl_data and not http_data %}
+            <p>No data available</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
