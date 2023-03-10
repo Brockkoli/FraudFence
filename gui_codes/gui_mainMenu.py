@@ -40,11 +40,9 @@ window = sg.Window('FraudFence', layout, size=(400, 445))
 
 while True:
     event, values = window.read()
-
     if event == sg.WINDOW_CLOSED or event == "EXIT":
         print('Thank you for using FraudFence. Have a safe Internet experience!')
         break
-
 
     if event == "ENTER":
         url = values['url']
