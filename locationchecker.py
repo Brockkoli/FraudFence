@@ -28,8 +28,4 @@ def serverlocationchecker(ip_address):
         print("-" * 50)
         print(f"Location for " + colorama.Fore.YELLOW + ip_address + colorama.Style.RESET_ALL + " opened in browser.\n")
 
-        checker = input("Do you wish to continue? (Y/N) ")
-        if checker == "y":
-            return True
-        else:
-            return False
+
