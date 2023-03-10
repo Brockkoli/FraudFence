@@ -99,8 +99,3 @@ def dnslookup(domain):
 
     print(colorama.Fore.YELLOW + "-" * 40 + colorama.Style.RESET_ALL)
 
-    checker = input("Do you wish to continue? (Y/N) ")
-    if checker == "y":
-        return True
-    else:
-        return False
