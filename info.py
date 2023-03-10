@@ -33,8 +33,3 @@ def whois_check(domain):
         print("Whois for: " + domain)
         print(stripped_text)
 
-        checker = input("Do you wish to continue? (Y/N) ")
-        if checker == "y":
-                return True
-        else:
-                return False
