@@ -48,7 +48,7 @@ while True:
 
     if event == "ENTER":
         url = values['url']
-        #if url field is empty
+        # if url field is empty
         if not url:
             window['option'].update("Please enter a URL", visible=True, text_color='red')
         else:
@@ -65,6 +65,7 @@ while True:
             window['Web Header Checker'].update(visible=True, disabled=False)
             window['gap4'].update(visible=True)
             window['SSL Information'].update(visible=True, disabled=False)
+            # resize window to fit all the buttons inside
             window.size = (400,530)
 
     try:
