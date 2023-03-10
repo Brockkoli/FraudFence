@@ -1,12 +1,9 @@
 import PySimpleGUI as sg
-import colorama
 import requests
-
-colorama.init()
-
 
 def headers(url):
     try:
+        # strip all possible http/https.www combinations
         if url.startswith("https://"):
             url = url.strip("https://")
         elif url.startswith("http://"):
@@ -33,7 +30,7 @@ def headers(url):
         headers_output.append("-" * 50)
         headers_output.append("Do you wish to continue? (Y/N) ")
 
-        layout = [[sg.Multiline(default_text="\n".join(headers_output), size=(80, 30), key='OUTPUT', font=("Courier", 10),
+        layout = [[sg.Multiline(default_text="\n".join(headers_output), size=(70, 20), key='OUTPUT', font=("Courier", 10),
                                 background_color="black", text_color="white")],
                   [sg.Button("Yes"), sg.Button("No")]
                   ]
@@ -45,9 +42,8 @@ def headers(url):
             event, values = window.read()
 
             if event == sg.WIN_CLOSED or event == "No":
-                window.close()
-                break
-            elif event == "Yes":
+                return False
+            else:
                 window.close()
                 return True
 

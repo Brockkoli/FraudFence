@@ -2,6 +2,7 @@ import dns.resolver
 import PySimpleGUI as sg
 
 def dnslookup(domain):
+    # strip all possible http/https.www combinations
     if domain.startswith("https://"):
         domain = domain.strip("https://")
     elif domain.startswith("http://"):
@@ -83,6 +84,7 @@ def dnslookup(domain):
     except:
         output += "No NS record found." + "\n"
 
+    # get TXT record
     try:
         TXT_record = dns.resolver.resolve(domain, 'TXT')
         for record in TXT_record:
@@ -92,7 +94,7 @@ def dnslookup(domain):
 
     output += "-" * 50 + "\n" + "Do you wish to continue? (Y/N)"
     layout = [
-        [sg.Multiline(output, size=(80, 20), key='-OUTPUT-', autoscroll=True, background_color='black',
+        [sg.Multiline(output, size=(70, 20), key='-OUTPUT-', autoscroll=True, background_color='black',
                       font=('Courier', 10), text_color='white')],
         [sg.Button('Yes'), sg.Button('No')]
     ]
@@ -105,6 +107,6 @@ def dnslookup(domain):
         if event == sg.WIN_CLOSED or event == 'No':
             return False
 
-        if event == 'Yes':
+        else:
             window.close()
             return True
