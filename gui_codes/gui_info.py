@@ -44,5 +44,3 @@ def whois_check(domain):
         else:
             window.close()
             return True
-
-    window.close()

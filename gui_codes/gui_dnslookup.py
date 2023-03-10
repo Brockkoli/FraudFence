@@ -103,10 +103,8 @@ def dnslookup(domain):
 
     while True:
         event, values = window.read()
-
         if event == sg.WIN_CLOSED or event == 'No':
             return False
-
         else:
             window.close()
             return True

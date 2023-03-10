@@ -40,15 +40,11 @@ def headers(url):
 
         while True:
             event, values = window.read()
-
             if event == sg.WIN_CLOSED or event == "No":
                 return False
             else:
                 window.close()
                 return True
 
-        window.close()
-
     except requests.exceptions.RequestException as e:
         sg.popup_error(f"Error: {e}")
-
