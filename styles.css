@@ -1,0 +1,63 @@
+/* Add some CSS styles to make the report look nicer */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+img {
+    max-width: 15%;
+    display: block;
+    margin: 0 auto;
+}
+
+.title {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Add CSS to change the color of the link to blue */
+a {
+    color: blue;
+}
+
+.table-container {
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  table {
+    display: block;
+    margin: 0 auto;
+  }
+  
