@@ -3,15 +3,11 @@ from pyfiglet import Figlet
 from termcolor import colored
 import socket
 
-# Importing modules
 from gui_dnslookup import dnslookup
 from gui_headers import headers
 from gui_info import whois_check
 from gui_locationchecker import serverlocationchecker
-#from portscan import portscan_check
 from gui_sslinformation import ssl_checker
-#from tracer import traceroute
-#from directory import directory
 import asyncio
 
 f = open('fraudfence.txt', 'r')
@@ -51,7 +47,6 @@ while True:
     # if event == 'url':
     #     url = values['url']
 
-
     if event == "ENTER":
 
         # make the buttons/text visible and enabled
@@ -71,9 +66,6 @@ while True:
             window['Web Header Checker'].update(visible=True, disabled=False)
             window['gap4'].update(visible=True)
             window['SSL Information'].update(visible=True, disabled=False)
-            #window['Trace Route'].update(visible=True, disabled=False)
-            #window['Directory Busting'].update(visible=True, disabled=False)
-            #changes the window size as more buttons are now visible
             window.size = (400,530)
 
 
@@ -82,10 +74,10 @@ while True:
             result = whois_check(url)
             if not result:
                 break
-        elif event == "Port Scan":
-            result = portscan_check(url)
-            if not result:
-                break
+        # elif event == "Port Scan":
+        #     result = portscan_check(url)
+        #     if not result:
+        #         break
         elif event == "DNS Lookup":
             result = dnslookup(url)
             if not result:
@@ -105,14 +97,14 @@ while True:
             result = ssl_checker(url)
             if not result:
                 break
-        elif event == "Trace Route":
-            result = traceroute(url)
-            if not result:
-                break
-        elif event == "Directory Busting":
-            result = asyncio.run(directory(url))
-            if not result:
-                break
+        # elif event == "Trace Route":
+        #     result = traceroute(url)
+        #     if not result:
+        #         break
+        # elif event == "Directory Busting":
+        #     result = asyncio.run(directory(url))
+        #     if not result:
+        #         break
         else:
             continue
 
@@ -122,4 +114,3 @@ while True:
 
     except Exception as e:
         print(e)
-
