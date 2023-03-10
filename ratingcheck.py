@@ -54,8 +54,3 @@ def wrr_check(t):
         table.add_row([name, confidence])
 
     print(table)
-    checker = input("Do you wish to continue? (Y/N) ")
-    if checker == "y":
-        return True
-    else:
-        return False
