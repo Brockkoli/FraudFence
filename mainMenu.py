@@ -12,6 +12,8 @@ from portscan import portscan_check
 from sslinformation import ssl_checker
 from tracer import traceroute
 from directory import directory
+from printalloptions import printall
+
 import asyncio
 import colorama
 
@@ -40,9 +42,25 @@ def printoptions():
     print("6. SSL Information")
     print("7. Trace Route")
     print("8. Directory Busting")
-    print("9. Exit")
+    print("9. Print All")
+    print("10. Exit")
     print(colorama.Fore.CYAN + "*" * 50 + colorama.Style.RESET_ALL)
-    print("\n")
+
+
+def checkoption():
+    checker = input("Do you wish to continue? (Y/N) ")
+    checkState = True
+    if checker.lower() == "y":
+        return checkState
+    elif checker.lower() == "n":
+        checkState = False
+        print(checkState)
+        return checkState
+    else:
+        if checker.lower() != "y" or "n":
+            print("\nInvalid input. Please enter Y/N. \n")
+            checkoption()
+
 
 def exitoption():
     if fraudFence is None:
@@ -59,17 +77,20 @@ if fraudFence:
                 url = input("Type in the URL: ")
             elif fraudFence == "1":
                 result = whois_check(url)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "2":
                 result = portscan_check(url)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "3":
                 result = dnslookup(url)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "4":
@@ -77,30 +98,39 @@ if fraudFence:
                 url = url.strip("http://")
                 ip_address = socket.gethostbyname(url)
                 result = serverlocationchecker(ip_address)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "5":
                 result = headers(url)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "6":
                 result = ssl_checker(url)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "7":
                 result = traceroute(url)
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "8":
                 result = asyncio.run(directory(url))
-                if not result:
+                checker = checkoption()
+                if checker == False:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "9":
+                result = ssl_checker(url)
+                result2 = headers(url)
+                printall(url,result,result2)
+            elif fraudFence == "10":
                 fraudFence = None
                 exitoption()
             else:
