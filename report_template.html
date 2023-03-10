@@ -1,107 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>FraudFence Report</title>
-    <style>
-        /* Add some CSS styles to make the report look nicer */
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 0;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-            vertical-align: top;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        img {
-            max-width: 15%;
-            display: block;
-            margin: 0 auto;
-        }
-        .title {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        header {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        /* Add CSS to change the color of the link to blue */
-        a {
-            color: blue;
-        }
-        .table-container {
-            margin-bottom: 20px;
-        }
-    </style>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="fraudfence.jpg" alt="Example Image">
-            <div class="title">Full Report on: <a href="{{ url }}">{{ url }}</a></div>
-        </header>
-        <div class="content">
-            <h1>Report</h1>
-            {% if ssl_data %}
-            <div class="table-container">
-                <h2>SSL Information</h2>
-                <table>
-                    <tr>
-                        {% for header in ssl_headers %}
-                        <th>{{ header }}</th>
-                        {% endfor %}
-                    </tr>
-                    {% for row in ssl_data %}
-                    <tr>
-                        {% for item in row %}
-                        <td>{{ item.value }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            {% endif %}
-            {% if http_data %}
-            <div class="table-container">
-                <h2>Headers Information</h2>
-                <table>
-                    <tr>
-                        {% for header in http_headers %}
-                        <th>{{ header }}</th>
-                        {% endfor %}
-                    </tr>
-                    {% for row in http_data %}
-                    <tr>
-                        {% for item in row %}
-                        <td>{{ item.value }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-            {% endif %}
-            {% if not ssl_data and not http_data %}
-            <p>No data available</p>
-            {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">FraudFence Report</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ssl">SSL Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#headers">Headers</a>
+                </li>
+            </ul>
         </div>
-    </div>
-</body>
-</html>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <img src="fraudfence.png" alt="Example Image" class="img-fluid">
+                <h1 class="mt-1">Full Report on: <a href="{{ url }}">{{ url }}</a></h1>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-7">
+                {% if ssl_data %}
+                <div class="table-container">
+                    <h2 id="ssl">SSL Information</h2>
+                    <table class="table table-bordered">
+                        {% for header in ssl_headers %}
+                            <tr>
+                                <th>{{ header }}</th>
+                                <td>{{ ssl_data[0][loop.index0].value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+                {% if http_data %}
+                <div class="table-container">
+                    <h2 id="headers">Headers Information</h2>
+                    <table class="table table-bordered">
+                            {% for header in http_headers %}
+                            <tr>
+                                <th>{{ header }}</th>
+                                <td>{{ http_data[0][loop.index0].value }}</td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+                {% if not ssl_data and not http_data %}
+                <p>No data available</p>
+                {% endif %}
+            </div>
+        </div>
+   
