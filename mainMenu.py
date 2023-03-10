@@ -13,6 +13,7 @@ from sslinformation import ssl_checker
 from tracer import traceroute
 from directory import directory
 from printalloptions import printall
+from ratingcheck import wrr_check
 
 import asyncio
 import colorama
@@ -42,8 +43,9 @@ def printoptions():
     print("6. SSL Information")
     print("7. Trace Route")
     print("8. Directory Busting")
-    print("9. Print All")
-    print("10. Exit")
+    print("9. Web Risk Rating")
+    print("10. Print All")
+    print("11. Exit")
     print(colorama.Fore.CYAN + "*" * 50 + colorama.Style.RESET_ALL)
 
 
@@ -127,14 +129,20 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "9":
+                result = wrr_check(url)
+                checker = checkoption()
+                if checker == False:
+                    fraudFence = None
+                    exitoption()
+            elif fraudFence == "10":
                 result = ssl_checker(url)
                 result2 = headers(url)
                 printall(url,result,result2)
-            elif fraudFence == "10":
+            elif fraudFence == "11":
                 fraudFence = None
                 exitoption()
             else:
-                print("\nInvalid input. Please enter a number between 1 and 9\n")
+                print("\nInvalid input. Please enter a number between 1 and 11\n")
 
         except KeyboardInterrupt:
             print("\nExiting program...")
