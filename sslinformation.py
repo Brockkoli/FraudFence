@@ -48,13 +48,8 @@ def ssl_checker(url):
             with context.wrap_socket(sock, server_hostname=url) as ssock:
                 cert = ssock.getpeercert()
                 print_cert_info(cert)
-
+                return cert
         print("-" * 66)
 
-        checker = input("Do you wish to continue? (Y/N) ")
-        if checker.lower() == "y":
-            return True
-        else:
-            return False
     except Exception as e:
         print(f"Error: {e}")
