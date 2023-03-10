@@ -24,19 +24,18 @@ def headers(url):
         response = requests.head(url)
         headers = response.headers
 
+        headers_dict = {}
+
         for header, value in headers.items():
             # the Content-Security-Policy header displays all the browsers in one line
             if header == "Content-Security-Policy":
                 # the join function will print each output in one line
                 value = ', \n'.join(value.split())
+
+            headers_dict[header] = value
             print(f"{colorama.Fore.GREEN + header + colorama.Style.RESET_ALL}: {value}")
+
         print("-" * 50)
-
-        checker = input("Do you wish to continue? (Y/N) ")
-        if checker == "y":
-            return True
-        else:
-            return False
-
+        return headers_dict
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
