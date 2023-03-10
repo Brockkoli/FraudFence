@@ -43,13 +43,6 @@ def traceroute(target):
             print("{:<5} {:<20} {:<30} {:<10.4f}".format(ttl, reply.src, resolve(reply.src), reply.time))
         ttl += 1
 
-    checker = input("Do you wish to continue? (Y/N) ")
-    if checker == "y":
-        return True
-    else:
-        return False
-
-
 def resolve(ip_addr):
     # resolve IP address to hostname
     try:
