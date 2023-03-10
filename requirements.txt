@@ -13,3 +13,4 @@ asyncio
 tqdm
 httpx
 branca
+prettytable
