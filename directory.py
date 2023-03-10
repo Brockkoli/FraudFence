@@ -83,12 +83,6 @@ async def directory(base_url):
         for url in successes:
             print(colorama.Fore.GREEN + url + colorama.Style.RESET_ALL)
 
-        checker = input("Do you wish to continue? (Y/N) ")
-        if checker == "y":
-            return True
-        else:
-            return False
-        
     except KeyboardInterrupt:
             print("\nExiting program...")
             exit()
