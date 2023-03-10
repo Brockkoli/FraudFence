@@ -1,13 +1,11 @@
 import socket
 import ssl
 import re
-import colorama
 import textwrap
 import PySimpleGUI as sg
 
-colorama.init()
-
 def print_cert_info(cert: dict):
+    #create an empty list then append to it once the values have been scraped
     rows = []
     for key, value in cert.items():
         str_value = str(value)
@@ -35,10 +33,12 @@ def print_cert_info(cert: dict):
 
 def ssl_checker(url):
     if url.startswith("https://" or "http://"):
+        #remove the http/https scheme from the url
         url = url.strip("https://")
         url = url.strip("http://")
 
     if not url.startswith("www."):
+        #append the www prefix to the url
         newurl = "www." + url
         url = newurl
 
