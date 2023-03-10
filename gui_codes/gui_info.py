@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 import PySimpleGUI as sg
 
 def whois_check(domain):
+    # using this API to help with the code
     url = "https://whoisapi-whois-v2-v1.p.rapidapi.com/whoisserver/WhoisService"
 
     if domain.startswith("https://"):
@@ -30,20 +31,16 @@ def whois_check(domain):
                     + root.find(".//strippedText").text + "-" * 50 \
                     + "\nDo you wish to continue? (Y/N)"
 
-    layout = [[sg.Text(f"WHOIS information on: {domain}", size=(50, 1), font=("Helvetica", 16))],
-              [sg.Multiline(stripped_text, key='output', size=(70, 20),
+    layout = [[sg.Multiline(stripped_text, key='output', size=(70, 20),
                             background_color="black", text_color="white", font=("Courier", 10))],
               [sg.Button("Yes"), sg.Button("No")]]
 
     window = sg.Window("WHOIS Lookup", layout, finalize=True)
-    #window['output'].print(f"WHOIS information on: {domain}" + '\n')
 
     while True:
         event, values = window.read()
-        if event == "Yes":
+        if event == sg.WIN_CLOSED or event == "No":
+            return False
+        else:
             window.close()
             return True
-        elif event in (sg.WIN_CLOSED, "No"):
-            return False
-
-    window.close()

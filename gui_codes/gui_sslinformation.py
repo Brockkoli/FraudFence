@@ -5,7 +5,7 @@ import textwrap
 import PySimpleGUI as sg
 
 def print_cert_info(cert: dict):
-    #create an empty list then append to it once the values have been scraped
+    # create an empty list then append to it once the values have been scraped
     rows = []
     for key, value in cert.items():
         str_value = str(value)
@@ -33,16 +33,15 @@ def print_cert_info(cert: dict):
 
 def ssl_checker(url):
     if url.startswith("https://" or "http://"):
-        #remove the http/https scheme from the url
+        # remove the http/https scheme from the url
         url = url.strip("https://")
         url = url.strip("http://")
 
     if not url.startswith("www."):
-        #append the www prefix to the url
+        # append the www prefix to the url
         newurl = "www." + url
         url = newurl
 
-    cert_info = ""
     try:
         context = ssl.create_default_context()
         with socket.create_connection((url, 443)) as sock:
@@ -52,18 +51,18 @@ def ssl_checker(url):
 
         layout = [
             [sg.Multiline(f"SSL information for the URL: {url}\n\n{cert_info}\nDo you wish to continue? (Y/N)",
-                          size=(80, 20), font=("Courier", 10), background_color="black",
+                          size=(70, 20), font=("Courier", 10), background_color="black",
                           text_color="white", key='-MULTILINE-')],
-            [sg.Button('Yes'), sg.Button('No')]
+            [sg.Button("Yes"), sg.Button("No")]
         ]
 
         window = sg.Window('SSL Checker', layout)
 
         while True:
             event, values = window.read()
-            if event in (sg.WIN_CLOSED, 'No'):
-                exit()
-            elif event == 'Yes':
+            if event == sg.WIN_CLOSED or event == "No":
+                return False
+            else:
                 window.close()
                 return True
 

@@ -2,14 +2,15 @@ import PySimpleGUI as sg
 from pyfiglet import Figlet
 from termcolor import colored
 import socket
+import asyncio
 
 from gui_dnslookup import dnslookup
 from gui_headers import headers
 from gui_info import whois_check
 from gui_locationchecker import serverlocationchecker
 from gui_sslinformation import ssl_checker
-import asyncio
 
+# this txt file contains our logo in ASCII characters
 f = open('fraudfence.txt', 'r')
 # show the logo in the GUI
 file_contents = f.read()
@@ -39,21 +40,17 @@ window = sg.Window('FraudFence', layout, size=(400, 445))
 
 while True:
     event, values = window.read()
-
     if event == sg.WINDOW_CLOSED or event == "EXIT":
         print('Thank you for using FraudFence. Have a safe Internet experience!')
         break
 
-    # if event == 'url':
-    #     url = values['url']
-
     if event == "ENTER":
-
-        # make the buttons/text visible and enabled
         url = values['url']
+        # if url field is empty
         if not url:
             window['option'].update("Please enter a URL", visible=True, text_color='red')
         else:
+            # make the buttons/text visible and enabled
             window['urlmsg'].update('Update URL: ')
             window['option'].update("Choose an option to run on:", visible=True, text_color="white")
             window['output'].update(url, visible=True, text_color='yellow')
@@ -66,18 +63,14 @@ while True:
             window['Web Header Checker'].update(visible=True, disabled=False)
             window['gap4'].update(visible=True)
             window['SSL Information'].update(visible=True, disabled=False)
+            # resize window to fit all the buttons inside
             window.size = (400,530)
-
 
     try:
         if event == "Whois":
             result = whois_check(url)
             if not result:
                 break
-        # elif event == "Port Scan":
-        #     result = portscan_check(url)
-        #     if not result:
-        #         break
         elif event == "DNS Lookup":
             result = dnslookup(url)
             if not result:
@@ -97,14 +90,6 @@ while True:
             result = ssl_checker(url)
             if not result:
                 break
-        # elif event == "Trace Route":
-        #     result = traceroute(url)
-        #     if not result:
-        #         break
-        # elif event == "Directory Busting":
-        #     result = asyncio.run(directory(url))
-        #     if not result:
-        #         break
         else:
             continue
 
