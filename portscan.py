@@ -95,13 +95,9 @@ def portscan_check(url):
             print("*" * 60)
             print("\n      Ip\t\tPort\t\tState")
             print("-" * 60)
-            for port in range(first, last):
+            for port in range(first-1, last):
                 executor.submit(scan, ip, port + 1)
 
     print("\nScan finished at:\t {}".format(date_time()))
     print("-" * 60)
-    checker = input("Do you wish to continue? (Y/N) ")
-    if checker == "y":
-        return True
-    else:
-        return False
+
