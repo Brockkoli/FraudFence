@@ -92,19 +92,19 @@ def dnslookup(domain):
     except:
         output += "No TXT record found." + "\n"
 
-    output += "-" * 50 + "\n" + "Do you wish to continue? (Y/N)"
+    output += "-" * 50 + "\n"
     layout = [
-        [sg.Multiline(output, size=(70, 20), key='-OUTPUT-', autoscroll=True, background_color='black',
+        [sg.Multiline(output, size=(70, 20), background_color='black',
                       font=('Courier', 10), text_color='white')],
-        [sg.Button('Yes'), sg.Button('No')]
+        [sg.Text("\t\t\t             "), sg.Button("CLOSE WINDOW", button_color='#750000')]
     ]
 
     window = sg.Window('DNS Lookup', layout)
 
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event == 'No':
-            return False
-        else:
+        # clicking 'CLOSE WINDOW' or the x button
+        if event == sg.WIN_CLOSED or event == "CLOSE WINDOW":
+            # close this window and go back to main menu
             window.close()
             return True
