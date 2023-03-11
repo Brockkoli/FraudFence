@@ -135,9 +135,10 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "10":
-                result = ssl_checker(url)
-                result2 = headers(url)
-                printall(url,result,result2)
+                ssl_result = ssl_checker(url)
+                header_result = headers(url)
+                dns_result = dnslookup(url)
+                printall(url,ssl_result,header_result,dns_result)
             elif fraudFence == "11":
                 fraudFence = None
                 exitoption()
