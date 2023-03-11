@@ -29,6 +29,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#headers">Headers</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#dns">DNS</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -68,8 +71,19 @@
                             {% endfor %}
                     </table>
                 </div>
+                <div class="table-container">
+                    <h2 id="dns">DNS Information</h2>
+                    <table class="table table-bordered">
+                            {% for header in dns_headers %}
+                            <tr>
+                                <th>{{ header }}</th>
+                                <td>{{ dns_data[0][loop.index0].value }}</td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
                 {% endif %}
-                {% if not ssl_data and not http_data %}
+                {% if not ssl_data and not http_data and not dns_data %}
                 <p>No data available</p>
                 {% endif %}
             </div>
