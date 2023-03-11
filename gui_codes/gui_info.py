@@ -28,19 +28,18 @@ def whois_check(domain):
 
     root = ET.fromstring(response.content)
     stripped_text = "-" * 50 + f"\nWHOIS information on: {domain} \n\n" \
-                    + root.find(".//strippedText").text + "-" * 50 \
-                    + "\nDo you wish to continue? (Y/N)"
+                    + root.find(".//strippedText").text + "-" * 50
 
     layout = [[sg.Multiline(stripped_text, key='output', size=(70, 20),
                             background_color="black", text_color="white", font=("Courier", 10))],
-              [sg.Button("Yes"), sg.Button("No")]]
+              [sg.Text("\t\t\t            "), sg.Button("CLOSE WINDOW", button_color=('#750000'))]]
 
     window = sg.Window("WHOIS Lookup", layout, finalize=True)
 
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event == "No":
-            return False
-        else:
+        # clicking 'CLOSE WINDOW' or the x button
+        if event == sg.WIN_CLOSED or event == "CLOSE WINDOW":
+            # close this window and go back to main menu
             window.close()
             return True
