@@ -50,19 +50,17 @@ def ssl_checker(url):
                 cert_info = print_cert_info(cert)
 
         layout = [
-            [sg.Multiline(f"SSL information for the URL: {url}\n\n{cert_info}\nDo you wish to continue? (Y/N)",
-                          size=(70, 20), font=("Courier", 10), background_color="black",
-                          text_color="white", key='-MULTILINE-')],
-            [sg.Button("Yes"), sg.Button("No")]
+            [sg.Multiline(("-" * 50 + f"\nSSL information for the URL: {url}\n\n{cert_info}\n" + "-" * 50),
+                          size=(79, 20), font=("Courier", 10), background_color="black", text_color="white")],
+            [sg.Text("\t\t\t\t        "), sg.Button("CLOSE WINDOW", button_color='#750000')]
         ]
-
         window = sg.Window('SSL Checker', layout)
 
         while True:
             event, values = window.read()
-            if event == sg.WIN_CLOSED or event == "No":
-                return False
-            else:
+            # clicking 'CLOSE WINDOW' or the x button
+            if event == sg.WIN_CLOSED or event == "CLOSE WINDOW":
+                # close this window and go back to main menu
                 window.close()
                 return True
 

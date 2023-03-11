@@ -29,9 +29,11 @@ def headers(url):
 
         headers_output.append("-" * 50)
 
-        layout = [[sg.Multiline(default_text="\n".join(headers_output), size=(70, 20), key='OUTPUT', font=("Courier", 10),
-                                background_color="black", text_color="white")],
-                  [sg.Text("\t\t\t            "), sg.Button("CLOSE WINDOW", button_color=('#750000'))]]
+        layout = [
+            [sg.Multiline(default_text="\n".join(headers_output), size=(70, 20), font=("Courier", 10),
+                          background_color="black", text_color="white")],
+            [sg.Text("\t\t\t             "), sg.Button("CLOSE WINDOW", button_color='#750000')]
+        ]
         sg.theme("DarkBlack1")
 
         window = sg.Window("Headers", layout)

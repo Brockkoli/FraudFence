@@ -24,12 +24,14 @@ def serverlocationchecker(ip_address):
 
         # display a popup window asking the user if they want to continue
         # user can see this popup when they go back to the program
-        layout = [[sg.Text(f"Location for {ip_address} opened in browser")],
-                  [sg.Button("CLOSE POPUP", button_color='#750000')]]
+        layout = [
+            [sg.Text(f"Location for {ip_address} opened in browser")],
+            [sg.Button("CLOSE POPUP", button_color='#750000')]
+        ]
         window = sg.Window("Location opened", layout)
-        event = window.read()
-        window.close()
+        event, _ = window.read()
 
         if event == sg.WIN_CLOSED or event == "CLOSE POPUP":
             # close this window and go back to main menu
+            window.close()
             return True

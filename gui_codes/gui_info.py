@@ -30,9 +30,11 @@ def whois_check(domain):
     stripped_text = "-" * 50 + f"\nWHOIS information on: {domain} \n\n" \
                     + root.find(".//strippedText").text + "-" * 50
 
-    layout = [[sg.Multiline(stripped_text, key='output', size=(70, 20),
-                            background_color="black", text_color="white", font=("Courier", 10))],
-              [sg.Text("\t\t\t            "), sg.Button("CLOSE WINDOW", button_color=('#750000'))]]
+    layout = [
+        [sg.Multiline(stripped_text, size=(70, 20), background_color="black",
+                      text_color="white", font=("Courier", 10))],
+        [sg.Text("\t\t\t             "), sg.Button("CLOSE WINDOW", button_color='#750000')]
+    ]
 
     window = sg.Window("WHOIS Lookup", layout, finalize=True)
 
