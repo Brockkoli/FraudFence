@@ -16,7 +16,7 @@ def headers(url):
             url = url.strip("http://www")
         url = "https://www." + url
 
-        header_str = "-" * 50 + f"\nHeader of: {url}\n"
+        header_str = "-" * 50 + f"\nHeaders of: {url}\n"
         headers_output = [header_str]
 
         response = requests.head(url)
@@ -28,21 +28,19 @@ def headers(url):
             headers_output.append(f"{header}: {value}")
 
         headers_output.append("-" * 50)
-        headers_output.append("Do you wish to continue? (Y/N) ")
 
         layout = [[sg.Multiline(default_text="\n".join(headers_output), size=(70, 20), key='OUTPUT', font=("Courier", 10),
                                 background_color="black", text_color="white")],
-                  [sg.Button("Yes"), sg.Button("No")]
-                  ]
+                  [sg.Text("\t\t\t            "), sg.Button("CLOSE WINDOW", button_color=('#750000'))]]
         sg.theme("DarkBlack1")
 
         window = sg.Window("Headers", layout)
 
         while True:
             event, values = window.read()
-            if event == sg.WIN_CLOSED or event == "No":
-                return False
-            else:
+            # clicking 'CLOSE WINDOW' or the x button
+            if event == sg.WIN_CLOSED or event == "CLOSE WINDOW":
+                # close this window and go back to main menu
                 window.close()
                 return True
 
