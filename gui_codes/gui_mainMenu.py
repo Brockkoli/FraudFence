@@ -26,13 +26,14 @@ layout = [
     [sg.Text("\t\t "), sg.Text("WELCOME TO", font=('Courier', 12))],
     [sg.Text("          "), sg.Text(figlet_text, font=('Courier', 7), text_color='#00ff98')],
     [sg.Text("Enter a URL:", key='urlmsg'), sg.InputText(key='url', size=(39,1))],
-    [sg.Button("ENTER", size=(9, 1), font=('Helvetica', 11)), sg.Button("EXIT", button_color=('white', 'red'), size=(9, 1), font=('Helvetica', 11))],
+    [sg.Text("\t"), sg.Button("ENTER", button_color=('white', 'green'), size=(9, 1), font=('Helvetica', 11)),
+    sg.Text("       "), sg.Button("EXIT", button_color=('white', 'red'), size=(9, 1), font=('Helvetica', 11))],
     [sg.Text(key='option', visible=False, font=('Helvetica', 9)), sg.Text(font=('Helvetica', 9), key='output', visible=False)],
-    [sg.Button("Whois", visible=False, disabled=True), sg.Text("     ", visible=False, key='gap1'),
-    sg.Button("DNS Lookup", visible=False, disabled=True), sg.Text("     ", visible=False, key='gap2'),
-    sg.Button("Server Location Checker", visible=False, disabled=True)],
-    [sg.Text("      ", visible=False, key='gap3'), sg.Button("Web Header Checker", visible=False, disabled=True),
-    sg.Text("      ", visible=False, key='gap4'), sg.Button("SSL Information", visible=False, disabled=True)],
+    [sg.Button("Whois", button_color=('grey25'), visible=False, disabled=True), sg.Text("     ", visible=False, key='gap1'),
+    sg.Button("DNS Lookup", button_color=('grey25'), visible=False, disabled=True), sg.Text("     ", visible=False, key='gap2'),
+    sg.Button("Server Location Checker", button_color=('grey25'), visible=False, disabled=True)],
+    [sg.Text("      ", visible=False, key='gap3'), sg.Button("Web Header Checker", button_color=('grey25'), visible=False, disabled=True),
+    sg.Text("      ", visible=False, key='gap4'), sg.Button("SSL Information", button_color=('grey25'), visible=False, disabled=True)],
     [sg.Text("Created by Team BottomFrag", font=('Courier', 7))]
 ]
 
