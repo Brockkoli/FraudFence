@@ -139,7 +139,8 @@ if fraudFence:
                 portres = portscan_check(url)
                 result = ssl_checker(url)
                 result2 = headers(url)
-                printall(url,portres,result,result2)
+                result3 = dnslookup(url)
+                printall(url,portres,result,result2,result3)
             elif fraudFence == "11":
                 fraudFence = None
                 exitoption()
