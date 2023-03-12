@@ -90,7 +90,7 @@ def checkoption():
 
 def exitoption():
     if fraudFence is None:
-        print("\nThank you for using FraudFence and have a safe Internet experience!")
+        print("\nThank you for using FraudFence and continue to browse the web safely!")
         exit()
 
 
