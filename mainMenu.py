@@ -121,8 +121,7 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "4":
-                ip_address = socket.gethostbyname(url)
-                result = serverlocationchecker(ip_address, url)
+                result = serverlocationchecker(url)
                 checker = checkoption()
                 if checker == False:
                     fraudFence = None
@@ -158,11 +157,12 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "10":
-                portres = portscan_check(url)
-                result = ssl_checker(url)
-                result2 = headers(url)
-                result3 = dnslookup(url)
-                printall(url,portres,result,result2,result3)
+                portscan_result = portscan_check(url)
+                ssl_result = ssl_checker(url)
+                header_result = headers(url)
+                dns_result = dnslookup(url)
+                location_result = serverlocationchecker(url)
+                printall(url,portscan_result,ssl_result,header_result,dns_result,location_result)
             elif fraudFence == "11":
                 fraudFence = None
                 exitoption()
