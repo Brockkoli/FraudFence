@@ -1,3 +1,4 @@
+import sys
 import socket
 from pyfiglet import Figlet
 from termcolor import colored
@@ -27,8 +28,32 @@ g = Figlet(font='standard')
 print(colored(g.renderText('     FraudFence'), 'green'))
 url = input("Type in the URL: ")
 
-fraudFence = True
+# Print URL input error
+def printInputErr():
+    print(colorama.Fore.RED + "Please enter a valid URL!" + colorama.Style.RESET_ALL)
+    sys.exit(ValueError("[*]Program exited with invalid input.\n"))
 
+# Check validity of URL
+def is_valid_url(url):
+    url_parts = url.split("://")
+    if len(url_parts) > 2:
+        printInputErr()
+    elif len(url_parts) == 2:
+        scheme, url = url_parts
+        if scheme not in ("http", "https"):
+            printInputErr()
+        if "." not in url:
+            printInputErr()
+    elif len(url_parts) == 1:
+        if "." not in url:
+            printInputErr()
+    if url.startswith("www."):
+        url = url[4:]
+    if not url.replace(".", "").isalnum():
+        printInputErr()
+    return True
+
+fraudFence = True
 
 def printoptions():
     print("\nHere are some options you can perform on: " + colorama.Fore.YELLOW + "\n" + url + colorama.Style.RESET_ALL)
@@ -71,6 +96,7 @@ def exitoption():
 
 if fraudFence:
     while fraudFence:
+        is_valid_url(url)
         printoptions()
         try:
             fraudFence = input("Choose an option to run: ")
@@ -95,12 +121,8 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "4":
-                if url.startswith("https://"):
-                    url = url.strip("https://")
-                if url.startswith("http://"):
-                    url = url.strip("http://")
                 ip_address = socket.gethostbyname(url)
-                result = serverlocationchecker(ip_address)
+                result = serverlocationchecker(ip_address, url)
                 checker = checkoption()
                 if checker == False:
                     fraudFence = None
