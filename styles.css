@@ -32,10 +32,6 @@ td {
     word-break: break-all;
 }
 
-#traceroute td {
-    width: 25%;
-}
-
 th {
     background-color: #f2f2f2;
     font-weight: bold;
@@ -60,6 +56,11 @@ img {
     font-weight: bold;
 }
 
+/* Add CSS to make only the header for port scan normal font */
+.portscan-header {
+    font-weight: normal;
+}
+
 header {
     margin-bottom: 20px;
     text-align: center;
@@ -80,8 +81,3 @@ a {
     display: block;
     margin: 0 auto;
   }
-
-.table-container .traceroute-class {
-    margin: 0 auto;
-}
-
