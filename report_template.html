@@ -35,6 +35,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#dns">DNS</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#location">Location</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -90,6 +93,8 @@
                             {% endfor %}
                     </table>
                 </div>
+                {% endif %}
+                {% if dns_data %}
                 <div class="table-container">
                     <h2 id="dns">DNS Information</h2>
                     <table class="table table-bordered">
@@ -100,6 +105,13 @@
                             </tr>
                             {% endfor %}
                     </table>
+                </div>
+                {% endif %}
+                <div class="table-container">
+                    <h2 id="location">Location Information</h2>
+                    <div class="map">
+                        {{ map|safe }}
+                    </div>
                 </div>
                 {% endif %}
                 {% if not ssl_data and not http_data and not dns_data %}
