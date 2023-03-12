@@ -21,10 +21,14 @@ def format_data(data):
     return formatted_data
 
 
-def printall(url, ssl_result, header_result,dns_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result):
     # Load the template
     with open('report_template.html') as file:
         template = Template(file.read())
+
+    # Format the data for the portscan report
+    portscan_data = format_data([portscan_result])
+    portscan_headers = [item['key'] for item in portscan_data[0]]
 
     # Format the data for the SSL report
     ssl_data = format_data([ssl_result])
@@ -41,6 +45,8 @@ def printall(url, ssl_result, header_result,dns_result):
     # Render the template with the data
     output1 = template.render(
         url=url,
+        portscan_headers = portscan_headers,
+        portscan_data = portscan_data,
         ssl_headers=ssl_headers,
         ssl_data=ssl_data,
         http_headers=http_headers,

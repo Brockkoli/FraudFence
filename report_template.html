@@ -24,6 +24,9 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#portscan">Port Scan</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#ssl">SSL Information</a>
                 </li>
                 <li class="nav-item">
@@ -43,9 +46,25 @@
                 <h1 class="mt-1">Full Report on: <a href="{{ url }}">{{ url }}</a></h1>
             </div>
         </div>
-
         <div class="row justify-content-center mt-5">
             <div class="col-md-7">
+                {% if portscan_data %}
+                <div class="table-container">
+                    <h2 id="portscan">Port Scan Information</h2>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="text-align: center; width: 300px;">Port Number </th>
+                            <td style="text-align: center; width: 350px;"> Port State</td>
+                        </tr>
+                        {% for header in portscan_headers %}
+                        <tr>
+                            <th style="text-align: center; width: 300px;">{{ header }}</th>
+                            <td style="text-align: center; width: 350px;">{{ portscan_data[0][loop.index0].value}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
                 {% if ssl_data %}
                 <div class="table-container">
                     <h2 id="ssl">SSL Information</h2>
