@@ -22,7 +22,7 @@ def format_data(data):
     return formatted_data
 
 
-def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result):
     # Format the data for the Location report
     latitude, longitude = location_result.split(",")
     # Use latitude and longitude to create a folium map
