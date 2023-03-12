@@ -1,5 +1,5 @@
 import webbrowser
-
+import socket
 import folium
 import requests
 import colorama
@@ -7,6 +7,12 @@ import colorama
 colorama.init()
 
 def serverlocationchecker(ip_address):
+    if url.startswith("https://"):
+        url = url.replace("https://", "", 1)
+    elif url.startswith("http://"):
+        url = url.replace("http://", "", 1)
+    ip_address = socket.gethostbyname(url)
+
     # Use online IP geolocation service to get the latlong of the server
     api_url = f"https://ipinfo.io/{ip_address}/geo"
     response = requests.get(api_url)
