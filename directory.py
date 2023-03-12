@@ -19,12 +19,12 @@ async def directory(base_url):
                 base_url = base_url.strip("https://")
         elif base_url.startswith("http://"):
                 base_url = base_url.strip("http://")
-        elif base_url.startswith("www"):     
-                base_url = base_url.strip("www")
-        elif base_url.startswith("https://www"):     
-                base_url = base_url.strip("https://www")
-        elif base_url.startswith("http://www"):     
-                base_url = base_url.strip("http://www")
+        elif base_url.startswith("www."):     
+                base_url = base_url.strip("www.")
+        elif base_url.startswith("https://www."):     
+                base_url = base_url.strip("https://www.")
+        elif base_url.startswith("http://www."):     
+                base_url = base_url.strip("http://www.")
         base_url = "https://www." + base_url
 
         if not base_url.endswith('/'):
@@ -32,8 +32,10 @@ async def directory(base_url):
 
         print("-" * 50)
         print("Directory busting for: " + colorama.Fore.YELLOW + base_url + colorama.Style.RESET_ALL)
+        print("\n")
 
-        # wordlist_file = "directory-list-lowercase-2.3-medium.txt" # 220560 lines
+        #wordlist_file = "y8domain.txt" 
+        #wordlist_file = "directory-list-lowercase-2.3-medium.txt" # 220560 lines
         wordlist_file = "common.txt" # 4616 lines
         tasks = []
         rate_limit = 10  # Requests per second
@@ -47,7 +49,11 @@ async def directory(base_url):
         progress_bar = tqdm(total=total, desc='Progress', position=0, leave=False)
 
         success_count = 0
+        success_custom_count = 0
+        blocked_count = 0
         successes = []
+        successes_custom = []
+        blocked = []
 
         for word in wordlist:
             url = base_url + word
@@ -58,10 +64,13 @@ async def directory(base_url):
                 response, word = await task
                 if response.status_code < 400:
                     # check for custom page not found 
-                    if "404 Not Found" or "does not exit" in response.text:
-                        tqdm.write("Failure (Custom Error): " + colorama.Fore.RED + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
-                        success_count = 0
-                    else:
+                    if response.status_code == 302:
+                        tqdm.write("Success (Custom Page): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        success_custom_count += 1
+                        successes_custom.append(response.url)
+                        # print("RESSSSSSSSSSSS: ", response.text)
+                        print("response coeeee: ", response.status_code)
+                    elif response.status_code == 200:
                         tqdm.write("Success: " + colorama.Fore.GREEN + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
                         success_count += 1
                         # append found directories to successes list
@@ -69,6 +78,10 @@ async def directory(base_url):
                         if success_count == 20:
                             print("20 consecutive successful scan. Like FALSE POSITIVES due to custom error page or server configuration. Edit response text in line 40 to attempt bypassing of custom error page.")
                             break
+                    else:
+                        tqdm.write("Blocked (Likely to exist): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        blocked_count += 1
+                        blocked.append(response.url)
                 else:
                     tqdm.write("Failure: " + colorama.Fore.RED + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
                 progress_bar.update(1)
@@ -79,9 +92,21 @@ async def directory(base_url):
 
         progress_bar.close()
 
-        print("\nFound URLs:")
-        for url in successes:
-            print(colorama.Fore.GREEN + url + colorama.Style.RESET_ALL)
+        if len(successes) != 0:
+            print("\nFound directories:")
+            for url in successes:
+                print(colorama.Fore.GREEN + str(url) + colorama.Style.RESET_ALL)
+
+        if len(successes_custom) != 0:
+            print("\nFound directories (customised page):")
+            for url in successes_custom:
+                print(colorama.Fore.GREEN + str(url) + colorama.Style.RESET_ALL)
+
+        if len(blocked) != 0:
+            print("\nFound blocked directories (likely to exist):")
+            for url in blocked:
+                print(colorama.Fore.YELLOW + str(url) + colorama.Style.RESET_ALL)
+                
 
     except KeyboardInterrupt:
             print("\nExiting program...")
