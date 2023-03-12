@@ -49,6 +49,10 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
     # Format the data for the DNS report
     dns_data = format_data([dns_result])
     dns_headers = [item['key'] for item in dns_data[0]]
+    
+    # Format the data for the Tracer report
+    tracer_data = format_data([tracer_result])
+    tracer_headers = [item['key'] for item in tracer_data[0]]
 
     # Render the template with the data
     output1 = template.render(
@@ -62,6 +66,8 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
         dns_headers = dns_headers,
         dns_data = dns_data,
         map = map_html
+        tracer_headers=tracer_headers,
+        tracer_data=tracer_data
     )
 
     # Save the output to a file
