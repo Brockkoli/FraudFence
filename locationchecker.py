@@ -40,4 +40,4 @@ def serverlocationchecker(url):
 
         print("-" * 50)
         print(f"Location for " + colorama.Fore.YELLOW + ip_address + colorama.Style.RESET_ALL + " opened in browser.\n")
-
+        return(data['loc'])
