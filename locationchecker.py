@@ -6,6 +6,7 @@ import colorama
 
 colorama.init()
 
+
 def conversion_url(url):
     if url.startswith("https://"):
         url = url.replace("https://", "", 1)
@@ -14,10 +15,11 @@ def conversion_url(url):
     ip_address = socket.gethostbyname(url)
     return ip_address
 
-def serverlocationchecker(ip_address, url):
+
+def serverlocationchecker(url):
     # Use conversion_url function to get the IP address of the server
     ip_address = conversion_url(url)
-    
+
     # Use online IP geolocation service to get the latlong of the server
     api_url = f"https://ipinfo.io/{ip_address}/geo"
     response = requests.get(api_url)
@@ -38,5 +40,4 @@ def serverlocationchecker(ip_address, url):
 
         print("-" * 50)
         print(f"Location for " + colorama.Fore.YELLOW + ip_address + colorama.Style.RESET_ALL + " opened in browser.\n")
-
 
