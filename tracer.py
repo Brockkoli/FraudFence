@@ -6,14 +6,16 @@ import colorama
 colorama.init()
 
 def traceroute(target):
-    if target.startswith("https://"):
-        target = target.strip("https://")
+    if target.startswith("https://www"):
+        target = target.replace("https://www.", "", 1)
+    elif target.startswith("http://www"):
+        target = target.replace("http://www.", "", 1)
+    elif target.startswith("https://"):
+        target = target.replace("https://", "", 1)
     elif target.startswith("http://"):
         target = target.strip("http://")
     elif target.startswith("www"):
         target = target.strip("www")
-    elif target.startswith("https://www"):
-        target = target.strip("https://www")
     elif target.startswith("http://www"):
         target = target.strip("http://www")
 
