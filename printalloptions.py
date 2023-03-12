@@ -1,3 +1,4 @@
+import folium
 from jinja2 import Template
 import datetime
 
