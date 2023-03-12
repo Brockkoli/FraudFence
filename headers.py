@@ -6,16 +6,18 @@ def headers(url):
     colorama.init()
     
     try:
-        if url.startswith("https://"):
-                url = url.strip("https://")
+        if url.startswith("https://www"):
+            url = url.replace("https://www.", "", 1)
+        elif url.startswith("http://www"):
+            url = url.replace("http://www.", "", 1)
+        elif url.startswith("https://"):
+            url = url.replace("https://", "", 1)
         elif url.startswith("http://"):
-                url = url.strip("http://")
+            url = url.strip("http://")
         elif url.startswith("www"):     
-                url = url.strip("www")
-        elif url.startswith("https://www"):     
-                url = url.strip("https://www")
+            url = url.strip("www")
         elif url.startswith("http://www"):     
-                url = url.strip("http://www")
+            url = url.strip("http://www")
         url = "https://www." + url
 
         print("Header of: " + colorama.Fore.YELLOW + url + colorama.Style.RESET_ALL)

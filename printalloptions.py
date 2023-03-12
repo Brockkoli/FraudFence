@@ -1,27 +1,38 @@
+import folium
 from jinja2 import Template
 import datetime
 
 def format_data(data):
     formatted_data = []
     for item in data:
-        row = []
-        for key, value in item.items():
-            if value is None:
-                formatted_value = "N/A"
-            elif isinstance(value, list):
-                formatted_value = ", ".join(value)
-            elif isinstance(value, tuple) and len(value) == 1 and isinstance(value[0], tuple):
-                formatted_value = ', '.join([f'{k}: {v}' for k, v in value[0]])
-            elif key == "expires":
-                formatted_value = datetime.datetime.strptime(value, "%Y%m%d%H%M%S").strftime("%d-%m-%Y")
-            else:
-                formatted_value = str(value)
-            row.append({'key': key, 'value': formatted_value})
-        formatted_data.append(row)
+        if isinstance(item, dict):
+            row = []
+            for key, value in item.items():
+                if value is None:
+                    formatted_value = "N/A"
+                elif isinstance(value, list):
+                    formatted_value = ", ".join(value)
+                elif isinstance(value, tuple) and len(value) == 1 and isinstance(value[0], tuple):
+                    formatted_value = ', '.join([f'{k}: {v}' for k, v in value[0]])
+                elif key == "expires":
+                    formatted_value = datetime.datetime.strptime(value, "%Y%m%d%H%M%S").strftime("%d-%m-%Y")
+                else:
+                    formatted_value = str(value)
+                row.append({'key': key, 'value': formatted_value})
+            formatted_data.append(row)
+        elif isinstance(item, list):
+            formatted_data.append(format_data(item))
     return formatted_data
 
 
-def printall(url, portscan_result, ssl_result, header_result,dns_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result):
+    # Format the data for the Location report
+    latitude, longitude = location_result.split(",")
+    # Use latitude and longitude to create a folium map
+    map = folium.Map(location=[latitude, longitude], zoom_start=15)
+    folium.Marker(location=[latitude, longitude], popup="Server location").add_to(map)
+    map_html = map.get_root().render()
+
     # Load the template
     with open('report_template.html') as file:
         template = Template(file.read())
@@ -42,6 +53,10 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result):
     dns_data = format_data([dns_result])
     dns_headers = [item['key'] for item in dns_data[0]]
 
+    # Format the data for the Traceroute report
+    tracer_data = format_data(tracer_result)
+    tracer_headers = [item['key'] for item in tracer_data[0]]
+
     # Render the template with the data
     output1 = template.render(
         url=url,
@@ -52,7 +67,10 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result):
         http_headers=http_headers,
         http_data=http_data,
         dns_headers = dns_headers,
-        dns_data = dns_data
+        dns_data = dns_data,
+        map = map_html,
+        tracer_headers=tracer_headers,
+        tracer_data=tracer_data
     )
 
     # Save the output to a file

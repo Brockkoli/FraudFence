@@ -35,6 +35,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#dns">DNS</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#location">Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#traceroute">Traceroute</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -53,13 +59,13 @@
                     <h2 id="portscan">Port Scan Information</h2>
                     <table class="table table-bordered">
                         <tr>
-                            <th style="text-align: center; width: 300px;">Port Number </th>
-                            <td style="text-align: center; width: 350px;"> Port State</td>
+                            <th style="text-align: center; width: 325px; font-weight: bold;">Port Number </th>
+                            <td style="text-align: center; width: 325px; font-weight: bold;"> Port State</td>
                         </tr>
                         {% for header in portscan_headers %}
                         <tr>
-                            <th style="text-align: center; width: 300px;">{{ header }}</th>
-                            <td style="text-align: center; width: 350px;">{{ portscan_data[0][loop.index0].value}}</td>
+                            <th class="portscan-header" style="text-align: center; width: 325px;">{{ header }}</th>
+                            <td style="text-align: center; width: 325px;">{{ portscan_data[0][loop.index0].value}}</td>
                         </tr>
                         {% endfor %}
                     </table>
@@ -101,10 +107,42 @@
                             {% endfor %}
                     </table>
                 </div>
+                <div class="table-container">
+                    <h2 id="location">Server Location Information</h2>
+                    <div class="map">
+                        {{ map|safe }}
+                    </div>
+                </div>
+                {% endif %}
+                {% if tracer_data %}
+                <div class="table-container">
+                  <h2 id="traceroute">Traceroute Information</h2>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="text-align: center; width: 100px;">TTL</th>
+                        <th style="text-align: center; width: 300px;">IP Address</th>
+                        <th style="text-align: center; width: 300px;">Hostname</th>
+                        <th style="text-align: center; width: 300px;">RTT (ms)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for tracer_tuple in tracer_data %}
+                      <tr>
+                            <td style="text-align: center; width: 100px;">{{ tracer_tuple[0]['value'] }}</td>
+                            <td style="text-align: center; width: 300px;">{{ tracer_tuple[1]['value'] }}</td>
+                            <td style="text-align: center; width: 300px;">{{ tracer_tuple[2]['value'] }}</td>
+                            <td style="text-align: center; width: 300px;">{{ tracer_tuple[3]['value'] }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
                 {% endif %}
                 {% if not ssl_data and not http_data and not dns_data %}
                 <p>No data available</p>
                 {% endif %}
             </div>
         </div>
-   
+    </div>
+</body>

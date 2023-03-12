@@ -2,14 +2,16 @@ import colorama
 import dns.resolver
 
 def dnslookup(domain):
-    if domain.startswith("https://"):
-        domain = domain.strip("https://")
+    if domain.startswith("https://www"):
+        domain = domain.replace("https://www.", "", 1)
+    elif domain.startswith("http://www"):
+        domain = domain.replace("http://www.", "", 1)
+    elif domain.startswith("https://"):
+        domain = domain.replace("https://", "", 1)
     elif domain.startswith("http://"):
         domain = domain.strip("http://")
     elif domain.startswith("www"):
-        domain = domain.strip("www.")
-    elif domain.startswith("https://www"):
-        domain = domain.strip("https://www")
+        domain = domain.strip("www")
     elif domain.startswith("http://www"):
         domain = domain.strip("http://www")
 
