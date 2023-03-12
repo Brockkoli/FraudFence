@@ -1,5 +1,4 @@
 import socket
-
 from pyfiglet import Figlet
 from termcolor import colored
 
@@ -96,8 +95,10 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "4":
-                url = url.strip("https://")
-                url = url.strip("http://")
+                if url.startswith("https://"):
+                    url = url.strip("https://")
+                if url.startswith("http://"):
+                    url = url.strip("http://")
                 ip_address = socket.gethostbyname(url)
                 result = serverlocationchecker(ip_address)
                 checker = checkoption()
@@ -135,10 +136,10 @@ if fraudFence:
                     fraudFence = None
                     exitoption()
             elif fraudFence == "10":
-                ssl_result = ssl_checker(url)
-                header_result = headers(url)
-                dns_result = dnslookup(url)
-                printall(url,ssl_result,header_result,dns_result)
+                portres = portscan_check(url)
+                result = ssl_checker(url)
+                result2 = headers(url)
+                printall(url,portres,result,result2)
             elif fraudFence == "11":
                 fraudFence = None
                 exitoption()
