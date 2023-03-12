@@ -8,6 +8,7 @@ import colorama
 
 def portscan_check(url):
     colorama.init()
+    results = {}
 
     if url.startswith('http://') or url.startswith('https://'):
         url = url.strip("https://")
@@ -69,10 +70,12 @@ def portscan_check(url):
                 # open ports
                 if scanresult == 0:
                     print(colorama.Fore.GREEN + "{}\t\t{}\t\tOpen".format(ipAddr, port) + colorama.Style.RESET_ALL)
+                    results[port] = "Open"
 
                 # closed ports
                 else:
                     print(colorama.Fore.RED + "{}\t\t{}\t\tClosed".format(ipAddr, port) + colorama.Style.RESET_ALL)
+                    results[port] = "Closed"
         except KeyboardInterrupt:
             print("Exiting program...")
 
@@ -100,4 +103,6 @@ def portscan_check(url):
 
     print("\nScan finished at:\t {}".format(date_time()))
     print("-" * 60)
-
+    
+    sorted_results = sorted(results.items(), key=lambda x: ("Open" not in x[1], x[0]))
+    return dict(sorted_results)
