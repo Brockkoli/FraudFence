@@ -38,6 +38,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#location">Location</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#traceroute">Traceroute</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -109,6 +112,31 @@
                     <div class="map">
                         {{ map|safe }}
                     </div>
+                </div>
+                {% endif %}
+                {% if tracer_data %}
+                <div class="table-container">
+                  <h2 id="traceroute">Traceroute Information</h2>
+                  <table class="traceroute-class">
+                    <thead>
+                      <tr>
+                        <th>TTL</th>
+                        <th>IP Address</th>
+                        <th>Hostname</th>
+                        <th>RTT (ms)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for tracer_tuple in tracer_data %}
+                      <tr>
+                            <td>{{ tracer_tuple[0]['value'] }}</td>
+                            <td>{{ tracer_tuple[1]['value'] }}</td>
+                            <td>{{ tracer_tuple[2]['value'] }}</td>
+                            <td>{{ tracer_tuple[3]['value'] }}</td>
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
                 {% endif %}
                 {% if not ssl_data and not http_data and not dns_data %}
