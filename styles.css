@@ -27,7 +27,11 @@ th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
-
+.map {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+}
 img {
     max-width: 15%;
     display: block;
