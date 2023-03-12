@@ -65,18 +65,22 @@ async def directory(base_url):
                 if response.status_code < 400:
                     # check for custom page not found 
                     if response.status_code == 302:
-                        tqdm.write("Success (Custom Page): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        success_count = 0
+                        tqdm.write("Page not found (Custom Page): " + colorama.Fore.MAGENTA + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
                         success_custom_count += 1
                         successes_custom.append(response.url)
-                        # print("RESSSSSSSSSSSS: ", response.text)
-                        print("response coeeee: ", response.status_code)
+                    elif response.status_code == 200 and ("Page not found" or "404 not found" or "does not exist" in response.text):
+                        tqdm.write("Page not found (Custom Page): " + colorama.Fore.MAGENTA + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        success_custom_count += 1
+                        successes_custom.append(response.url)
                     elif response.status_code == 200:
                         tqdm.write("Success: " + colorama.Fore.GREEN + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
                         success_count += 1
                         # append found directories to successes list
                         successes.append(response.url)
-                        if success_count == 20:
-                            print("20 consecutive successful scan. Like FALSE POSITIVES due to custom error page or server configuration. Edit response text in line 40 to attempt bypassing of custom error page.")
+                        if success_count == 10:
+                            print(colorama.Fore.RED + "\n\n10 consecutive successful scan.")
+                            print("!!! Likely FALSE POSITIVES due to custom error page or server configuration !!!\n" + colorama.Style.RESET_ALL)
                             break
                     else:
                         tqdm.write("Blocked (Likely to exist): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
@@ -87,26 +91,26 @@ async def directory(base_url):
                 progress_bar.update(1)
             except httpx.HTTPError:
                 progress_bar.update(1)
-                print(httpx.HTTPError)
                 pass
 
         progress_bar.close()
 
-        if len(successes) != 0:
+        if len(successes) != 0 and success_count != 20:
             print("\nFound directories:")
             for url in successes:
                 print(colorama.Fore.GREEN + str(url) + colorama.Style.RESET_ALL)
 
-        if len(successes_custom) != 0:
-            print("\nFound directories (customised page):")
-            for url in successes_custom:
-                print(colorama.Fore.GREEN + str(url) + colorama.Style.RESET_ALL)
+        # if len(successes_custom) != 0:
+        #     print("\nPage not found (customised page):")
+        #     for url in successes_custom:
+        #         print(colorama.Fore.MAGENTA + str(url) + colorama.Style.RESET_ALL)
 
         if len(blocked) != 0:
-            print("\nFound blocked directories (likely to exist):")
+            print("\nFound directories blocked for scanning (likely to exist):")
             for url in blocked:
                 print(colorama.Fore.YELLOW + str(url) + colorama.Style.RESET_ALL)
                 
+        print("Directory scanning completed!")
 
     except KeyboardInterrupt:
             print("\nExiting program...")
