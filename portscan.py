@@ -5,18 +5,19 @@ import threading
 
 import colorama
 
-
+def conversion_url(url):
+    if url.startswith("https://"):
+        url = url.replace("https://", "", 1)
+    elif url.startswith("http://"):
+        url = url.replace("http://", "", 1)
+    ip_address = socket.gethostbyname(url)
+    return ip_address
 def portscan_check(url):
     colorama.init()
     results = {}
 
-    if url.startswith('http://') or url.startswith('https://'):
-        url = url.strip("https://")
-        url = url.strip("http://")
-        ip_address = socket.gethostbyname(url)
-        ip = url
-    else:
-        ip = url
+    # Use conversion_url function to get the IP address of the server
+    ip = conversion_url(url)
     portno = input("Type the different types of option you want to run: (default | full | range ( eg: 1-80) )")
 
     # top 1000 most popular ports in list
