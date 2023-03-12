@@ -53,7 +53,7 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
     dns_data = format_data([dns_result])
     dns_headers = [item['key'] for item in dns_data[0]]
 
-    # Format the data for the DNS report
+    # Format the data for the Traceroute report
     tracer_data = format_data(tracer_result)
     tracer_headers = [item['key'] for item in tracer_data[0]]
 
