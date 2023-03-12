@@ -21,7 +21,14 @@ def format_data(data):
     return formatted_data
 
 
-def printall(url, portscan_result, ssl_result, header_result,dns_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result):
+    # Format the data for the Location report
+    latitude, longitude = location_result.split(",")
+    # Use latitude and longitude to create a folium map
+    map = folium.Map(location=[latitude, longitude], zoom_start=15)
+    folium.Marker(location=[latitude, longitude], popup="Server location").add_to(map)
+    map_html = map.get_root().render()
+    
     # Load the template
     with open('report_template.html') as file:
         template = Template(file.read())
@@ -52,7 +59,8 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result):
         http_headers=http_headers,
         http_data=http_data,
         dns_headers = dns_headers,
-        dns_data = dns_data
+        dns_data = dns_data,
+        map = map_html
     )
 
     # Save the output to a file
