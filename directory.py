@@ -15,16 +15,16 @@ async def make_request(url, sem, word):
 
 async def directory(base_url):
     try:
-        if base_url.startswith("https://"):
-                base_url = base_url.strip("https://")
-        elif base_url.startswith("http://"):
-                base_url = base_url.strip("http://")
-        elif base_url.startswith("www."):     
-                base_url = base_url.strip("www.")
-        elif base_url.startswith("https://www."):     
-                base_url = base_url.strip("https://www.")
+        if base_url.startswith("https://www."):     
+            base_url = base_url.replace("https://www.", "", 1)
         elif base_url.startswith("http://www."):     
-                base_url = base_url.strip("http://www.")
+            base_url = base_url.replace("http://www.", "", 1)
+        elif base_url.startswith("https://"):
+            base_url = base_url.replace("https://", "", 1)
+        elif base_url.startswith("http://"):
+            base_url = base_url.replace("http://", "", 1)
+        elif url.startswith("www."):     
+            base_url = base_url.replace("www.", "", 1)
         base_url = "https://www." + base_url
 
         if not base_url.endswith('/'):

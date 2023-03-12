@@ -31,13 +31,20 @@ def print_cert_info(cert: dict):
 
 
 def ssl_checker(url):
-    if url.startswith("https://" or "http://"):
-        url = url.strip("https://")
-        url = url.strip("http://")
+    if url.startswith("https://www."):     
+        url = url.replace("https://www.", "", 1)
+    elif url.startswith("http://www."):     
+        url = url.replace("http://www.", "", 1)
+    elif url.startswith("https://"):
+        url = url.replace("https://", "", 1)
+    elif url.startswith("http://"):
+        url = url.replace("http://", "", 1)
+    elif url.startswith("www."):     
+        url = url.replace("www.", "", 1)
 
-    if not url.startswith("www."):
-        newurl = "www." + url
-        url = newurl
+    print("first: ", url)
+    url = "www." + url
+    print("second: ", url)
 
     print("SSL information for the URL: ", colorama.Fore.YELLOW + url + colorama.Style.RESET_ALL)
     print("-" * 66)
