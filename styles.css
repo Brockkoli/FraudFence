@@ -1,5 +1,7 @@
 /* Add some CSS styles to make the report look nicer */
 body {
+    background-color: #080808 !important;
+    color: #ffffff !important;
     font-family: Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
@@ -19,6 +21,7 @@ table {
 
 th, td {
     border: 1px solid #ddd;
+    color: #ffffff;
     padding: 10px;
     text-align: left;
     vertical-align: top;
@@ -33,7 +36,7 @@ td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #36454F;
     font-weight: bold;
 }
 
@@ -68,7 +71,7 @@ header {
 
 /* Add CSS to change the color of the link to blue */
 a {
-    color: blue;
+    color: rgb(68, 154, 224);
 }
 
 .table-container {
