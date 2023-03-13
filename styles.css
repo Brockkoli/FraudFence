@@ -91,7 +91,12 @@ a {
     z-index: 9999;
   }
   
+  h2 {
+    padding-top: 60px; /* add the height of navbar */
+    margin-top: -60px; /* subtract the height of navbar */
+  }
+
   .container {
     /* Add margin-top to the content so it doesn't overlap with the fixed navbar */
-    margin-top: 60px; /* Adjust this value based on your navbar height */
+    margin-top: 60px; /* Adjust this value based on navbar height */
   }
