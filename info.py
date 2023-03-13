@@ -28,8 +28,27 @@ def whois_check(domain):
 
         root = ET.fromstring(response.content)
         stripped_text = root.find(".//strippedText").text
+
         print("WHOIS information on: " + colorama.Fore.YELLOW + domain + colorama.Style.RESET_ALL)
         print("-" * 50)
         print("Whois for: " + domain)
         print(stripped_text)
 
+        # save stripped_text to a dictionary for easier push to html
+        whois_info = {}
+
+        for line in stripped_text.split('\n'):
+                parts = line.split(':')
+                if len(parts) > 1:
+                        key = parts[0].strip()
+                        value = ':'.join(parts[1:]).strip()
+                        if key == "Name Server":
+                                # Name Server can have multiple values
+                                # this part will put all values under 'Name Server' into one cell in html, separated by a comma
+                                if "Name Servers" not in whois_info:
+                                        whois_info["Name Servers"] = []
+                                whois_info["Name Servers"].append(value)
+                        else:
+                                whois_info[key] = value
+
+        return whois_info
