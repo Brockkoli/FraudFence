@@ -4,11 +4,22 @@
 const API_KEY = "AIzaSyCHxpPr1VQSqpxwgnG3im7_blJxFy-y8Tg";
 
 // The URL to check
-// const url = "http://protintlab.com/";  // unsafe url
+// const url1 = "http://protintlab.com/";  // unsafe url
 // const url = "http://flirteas.za.com/"; // unsafe url
-const url1 = "http://flirteas.za.com/";
+// const url1 = "https://y8.com/";
+// https://www.oricoe-co-jp.oriseco.pbnice.top/ai/kal.php //test
 
-async function fetchData() {
+// Get the current tab
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    // Get the URL of the current tab
+    const url2 = tabs[0].url;
+    
+    // Get the domain name
+    const url1 = new URL(url2).hostname;
+    
+    console.log(url1);
+
+async function fetchData(url1) {
     // Google Safe Browsing API endpoint
     const endpoint = `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${API_KEY}`;
 
@@ -40,8 +51,9 @@ async function fetchData() {
         const data = await res.json()
 
         // Check if the URL is safe
-        if (data.matches) {
+        if (data.matches && data.matches.length > 0) {
             //console.log(`${url} is not safe`);
+            // URL is not safe
             const googlydb = data;
             const threat = data.matches[0].threat;
             // console.log('threat: ', threat);
@@ -53,12 +65,9 @@ async function fetchData() {
             `;
         } else {
             //console.log(`${url} is safe`);
-            const googlydb = data;
-            const threat = data.matches[0].threat;
+            // URL is safe
             document.getElementById('googly').innerHTML = `
                 <p class="safety safety--safe">${url1} is safe</p>
-                <p>Checked against database: ${JSON.stringify(googlydb)}</p>
-                <p>Threat: ${JSON.stringify(threat)}</p>
             `;
         }
     } catch(error) {
@@ -66,4 +75,6 @@ async function fetchData() {
     };
 }
 
-fetchData();
+fetchData(url1);
+
+});
