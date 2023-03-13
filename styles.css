@@ -81,3 +81,17 @@ a {
     display: block;
     margin: 0 auto;
   }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 9999;
+  }
+  
+  .container {
+    /* Add margin-top to the content so it doesn't overlap with the fixed navbar */
+    margin-top: 60px; /* Adjust this value based on your navbar height */
+  }

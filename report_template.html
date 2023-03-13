@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
         <a class="navbar-brand" href="#">FraudFence Report</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#portscan">Port Scan</a>
@@ -40,6 +40,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#traceroute">Traceroute</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#directory">Directory</a>
                 </li>
             </ul>
         </div>
@@ -144,12 +147,12 @@
                 {% endif %}
                 {% if directory_data %}
                 <div class="table-container">
-                    <h2 id="directory">Directory Information</h2>
+                    <h2 id="directory">Directory Buster</h2>
                     <table class="table table-bordered">
                             {% for header in directory_headers %}
                             <tr>
                                 <th>{{ header }}</th>
-                                <td style="width: 580px;">{{ directory_data[0][loop.index0].key }}</td>
+                                <td style="width: 475px;">{{ directory_data[0][loop.index0].key }}</td>
                             </tr>
                             {% endfor %}
                     </table>
