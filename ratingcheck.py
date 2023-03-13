@@ -11,6 +11,8 @@ def wrr_check(t):
         "X-RapidAPI-Key": "cc25bebdb7msha2bdd052afe2a46p12d2eajsn49f67df7252c",
         "X-RapidAPI-Host": "wot-web-risk-and-safe-browsing.p.rapidapi.com"
     }
+    #results dictionary to pass to printall
+    results = {}
 
     response = requests.request("GET", url, headers=headers, params=querystring)
 
@@ -45,6 +47,9 @@ def wrr_check(t):
     rating_cell = "{}{}\033[0m".format(rating_color, rating)
 
     table.add_row([url_cell, rating_cell])
+    #get the url and rating and put into results
+    url_name = querystring['t']
+    results[url_name]=rating
 
     # Extract the categories and add them to table
     categories = info["categories"]
@@ -52,5 +57,9 @@ def wrr_check(t):
         name = category["name"]
         confidence = category["confidence"]
         table.add_row([name, confidence])
+        #get the category names and confidence and add to results dictioanry
+        results[name] = confidence
 
     print(table)
+    #return the results
+    return results

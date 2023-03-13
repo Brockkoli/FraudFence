@@ -47,6 +47,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#whois">Whois</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#webrisk">Web Risk Rating</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -65,12 +68,12 @@
                     <h2 id="portscan">Port Scan Information</h2>
                     <table class="table table-bordered">
                         <tr>
-                            <th style="text-align: center; width: 325px; font-weight: bold;">Port Number </th>
-                            <td style="text-align: center; width: 325px; font-weight: bold;"> Port State</td>
+                            <th style="text-align: center; width: 325px;">Port Number </th>
+                            <th style="text-align: center; width: 325px;"> Port State</td>
                         </tr>
                         {% for header in portscan_headers %}
                         <tr>
-                            <th class="portscan-header" style="text-align: center; width: 325px;">{{ header }}</th>
+                            <td class="portscan-header" style="text-align: center; width: 325px;">{{ header }}</th>
                             <td style="text-align: center; width: 325px;">{{ portscan_data[0][loop.index0].value}}</td>
                         </tr>
                         {% endfor %}
@@ -167,6 +170,23 @@
                                 <th style="width: 325px;">{{ header }}</th>
                                 <td style="width: 325px;">{{ whois_data[0][loop.index0].value }}</td>
                             </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+                {% if webrisk_data %}
+                <div class="table-container">
+                    <h2 id="webrisk">Web Risk Rating</h2>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="text-align: center; width: 325px;">Headers</th>
+                            <th style="text-align: center; width: 325px;">Web Risk Rating</td>
+                        </tr>
+                        {% for header in webrisk_headers %}
+                        <tr>
+                            <td style="text-align: center; width: 325px;">{{ header }}</th>
+                            <td style="text-align: center; width: 325px;">{{ webrisk_data[0][loop.index0].value }}</td>
+                        </tr>
                         {% endfor %}
                     </table>
                 </div>
