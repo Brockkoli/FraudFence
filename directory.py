@@ -67,7 +67,7 @@ async def directory(base_url):
                     # check for custom page not found 
                     if response.status_code == 302:
                         success_count = 0
-                        tqdm.write("Page not found (Custom Page): " + colorama.Fore.MAGENTA + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        tqdm.write("Redirect (Custom Page): " + colorama.Fore.MAGENTA + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
                         success_custom_count += 1
                         successes_custom.append(response.url)
                     elif response.status_code == 200 and ("Page not found" or "404 not found" or "does not exist" in response.text):
@@ -115,7 +115,6 @@ async def directory(base_url):
         
         print("Directory scanning completed!")
         sorted_results = dict(sorted(results.items(), key=lambda x: x[1], reverse=True))
-        print(sorted_results)
         return sorted_results
 
     except KeyboardInterrupt:
