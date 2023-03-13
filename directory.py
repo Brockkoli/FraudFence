@@ -5,6 +5,7 @@ from tqdm import tqdm
 import colorama
 
 colorama.init()
+results = {}
 
 async def make_request(url, sem, word):
     async with sem:
@@ -23,7 +24,7 @@ async def directory(base_url):
             base_url = base_url.replace("https://", "", 1)
         elif base_url.startswith("http://"):
             base_url = base_url.replace("http://", "", 1)
-        elif url.startswith("www."):     
+        elif base_url.startswith("www."):     
             base_url = base_url.replace("www.", "", 1)
         base_url = "https://www." + base_url
 
@@ -76,6 +77,7 @@ async def directory(base_url):
                     elif response.status_code == 200:
                         tqdm.write("Success: " + colorama.Fore.GREEN + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
                         success_count += 1
+                        results[response.url]="Success"
                         # append found directories to successes list
                         successes.append(response.url)
                         if success_count == 10:
@@ -84,6 +86,7 @@ async def directory(base_url):
                             break
                     else:
                         tqdm.write("Blocked (Likely to exist): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        results[response.url] = "Blocked"
                         blocked_count += 1
                         blocked.append(response.url)
                 else:
@@ -109,9 +112,13 @@ async def directory(base_url):
             print("\nFound directories blocked for scanning (likely to exist):")
             for url in blocked:
                 print(colorama.Fore.YELLOW + str(url) + colorama.Style.RESET_ALL)
-                
+        
         print("Directory scanning completed!")
+        sorted_results = dict(sorted(results.items(), key=lambda x: x[1], reverse=True))
+        print(sorted_results)
+        return sorted_results
 
     except KeyboardInterrupt:
             print("\nExiting program...")
             exit()
+    

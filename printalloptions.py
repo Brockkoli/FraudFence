@@ -25,7 +25,7 @@ def format_data(data):
     return formatted_data
 
 
-def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result, directory_result):
     # Format the data for the Location report
     latitude, longitude = location_result.split(",")
     # Use latitude and longitude to create a folium map
@@ -55,7 +55,16 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
 
     # Format the data for the Traceroute report
     tracer_data = format_data(tracer_result)
-    tracer_headers = [item['key'] for item in tracer_data[0]]
+    if tracer_data:
+        tracer_headers = [item['key'] for item in tracer_data[0]]
+    else:
+        tracer_headers = []
+     #Format the data for the Directory report
+    directory_data = format_data([directory_result])
+    if directory_data:
+        directory_headers = [item['value'] for item in directory_data[0]]
+    else:
+        directory_headers = []
 
     # Render the template with the data
     output1 = template.render(
@@ -70,7 +79,9 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
         dns_data = dns_data,
         map = map_html,
         tracer_headers=tracer_headers,
-        tracer_data=tracer_data
+        tracer_data=tracer_data,
+        directory_headers = directory_headers,
+        directory_data = directory_data
     )
 
     # Save the output to a file

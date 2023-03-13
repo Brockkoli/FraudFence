@@ -163,7 +163,8 @@ if fraudFence:
                 dns_result = dnslookup(url)
                 location_result = serverlocationchecker(url)
                 tracer_result = traceroute(url)
-                printall(url,portscan_result,ssl_result,header_result,dns_result,location_result,tracer_result)
+                directory_result = asyncio.run(directory(url))
+                printall(url,portscan_result,ssl_result,header_result,dns_result,location_result,tracer_result, directory_result)
             elif fraudFence == "11":
                 fraudFence = None
                 exitoption()

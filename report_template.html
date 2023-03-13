@@ -142,6 +142,19 @@
                 {% if not ssl_data and not http_data and not dns_data %}
                 <p>No data available</p>
                 {% endif %}
+                {% if directory_data %}
+                <div class="table-container">
+                    <h2 id="directory">Directory Information</h2>
+                    <table class="table table-bordered">
+                            {% for header in directory_headers %}
+                            <tr>
+                                <th>{{ header }}</th>
+                                <td style="width: 580px;">{{ directory_data[0][loop.index0].key }}</td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
