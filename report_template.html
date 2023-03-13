@@ -44,6 +44,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#directory">Directory</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#whois">Whois</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -142,9 +145,6 @@
                   </table>
                 </div>
                 {% endif %}
-                {% if not ssl_data and not http_data and not dns_data %}
-                <p>No data available</p>
-                {% endif %}
                 {% if directory_data %}
                 <div class="table-container">
                     <h2 id="directory">Directory Buster</h2>
@@ -157,6 +157,22 @@
                             {% endfor %}
                     </table>
                 </div>
+                {% endif %}
+                {% if whois_data %}
+                <div class="table-container">
+                    <h2 id="whois">Whois Information</h2>
+                    <table class="table table-bordered">
+                        {% for header in whois_headers %}
+                            <tr>
+                                <th style="width: 325px;">{{ header }}</th>
+                                <td style="width: 325px;">{{ whois_data[0][loop.index0].value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+                {% if not ssl_data and not http_data and not dns_data %}
+                <p>No data available</p>
                 {% endif %}
             </div>
         </div>

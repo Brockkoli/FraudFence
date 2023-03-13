@@ -25,7 +25,7 @@ def format_data(data):
     return formatted_data
 
 
-def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result, directory_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result,directory_result,whois_result):
     # Format the data for the Location report
     latitude, longitude = location_result.split(",")
     # Use latitude and longitude to create a folium map
@@ -65,6 +65,10 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
         directory_headers = [item['value'] for item in directory_data[0]]
     else:
         directory_headers = []
+        
+    # Format the data for the Whois report
+    whois_data = format_data([whois_result])
+    whois_headers = [item['key'] for item in whois_data[0]]
 
     # Render the template with the data
     output1 = template.render(
@@ -81,7 +85,9 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
         tracer_headers=tracer_headers,
         tracer_data=tracer_data,
         directory_headers = directory_headers,
-        directory_data = directory_data
+        directory_data = directory_data,
+        whois_headers=whois_headers,
+        whois_data=whois_data
     )
 
     # Save the output to a file
