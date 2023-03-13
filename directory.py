@@ -85,8 +85,8 @@ async def directory(base_url):
                             print("!!! Likely FALSE POSITIVES due to custom error page or server configuration !!!\n" + colorama.Style.RESET_ALL)
                             break
                     else:
-                        tqdm.write("Blocked (Likely to exist): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
-                        results[response.url] = "Blocked"
+                        tqdm.write("Redirect (Likely to exist): " + colorama.Fore.YELLOW + f"{response.url}"  + colorama.Style.RESET_ALL + f"   Word: {word}")
+                        results[response.url] = "Redirect (Likely to exist)"
                         blocked_count += 1
                         blocked.append(response.url)
                 else:
@@ -109,7 +109,7 @@ async def directory(base_url):
         #         print(colorama.Fore.MAGENTA + str(url) + colorama.Style.RESET_ALL)
 
         if len(blocked) != 0:
-            print("\nFound directories blocked for scanning (likely to exist):")
+            print("\nRedirected directories found (likely to exist):")
             for url in blocked:
                 print(colorama.Fore.YELLOW + str(url) + colorama.Style.RESET_ALL)
         
