@@ -99,8 +99,8 @@
                     <table class="table table-bordered">
                             {% for header in http_headers %}
                             <tr>
-                                <th>{{ header }}</th>
-                                <td>{{ http_data[0][loop.index0].value }}</td>
+                                <th style="width: 250px;">{{ header }}</th>
+                                <td style="width: 400px;">{{ http_data[0][loop.index0].value }}</td>
                             </tr>
                             {% endfor %}
                     </table>
