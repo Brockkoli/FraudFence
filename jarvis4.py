@@ -1,11 +1,15 @@
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix, accuracy_score
+from sklearn.metrics import confusion_matrix, accuracy_score, roc_curve
 from sklearn.model_selection import train_test_split
 from sklearn.tree import export_graphviz
 import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
+import seaborn as sns
+import xgboost as xgb
+from xgboost import plot_importance
+
 import requests
 import re
 import whois
@@ -46,21 +50,56 @@ def jarvis4(url):
     [false_negatives true_positives]]
     '''
     print(colorama.Fore.RED + "\nConfusion Matrix: ")
-    print(confusion_matrix(y_test, y_pred))
+    cm = confusion_matrix(y_test, y_pred)
+    # print(confusion_matrix(y_test, y_pred))
+    print(cm)
     print("\n" + colorama.Style.RESET_ALL)
+
+    # assuming y_true and y_pred are your true labels and predicted labels, respectively
+    fpr, tpr, thresholds = roc_curve(y_test, y_pred)
+
+    # plot ROC curve
+    plt.plot(fpr, tpr)
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve')
+    plt.savefig('roc.png')
+    print("Plotting ROC curve.")
+    plt.show()
+
+    # plot the confusion matrix
+    sns.heatmap(cm, annot=True, cmap="Blues", fmt="d")
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted Class")
+    plt.ylabel("True Class")
+    # save the plot as an image file
+    plt.savefig('confusion_matrix.png')
+    print("Plotting the Confusion Matrix.")
+    plt.show()
+
+    # Plot feature importances
+    importances = clf.feature_importances_
+    feature_names = X.columns
+    plt.barh(feature_names, importances)
+    plt.xlabel("Feature importance")
+    plt.ylabel("Feature name")
+    plt.title("Random Forest Classifier Feature Importances")
+    plt.savefig('feature.png')
+    print("Plotting the Random Forest Classifier Feature Importances.")
+    plt.show()
 
     # Get user input
     domain = url
     if domain.startswith("https://"):
-            domain = domain.strip("https://")
+        domain = domain.strip("https://")
     elif domain.startswith("http://"):
-            domain = domain.strip("http://")
-    elif domain.startswith("www"):     
-            domain = domain.strip("www")
-    elif domain.startswith("https://www"):     
-            domain = domain.strip("https://www")
-    elif domain.startswith("http://www"):     
-            domain = domain.strip("http://www")
+        domain = domain.strip("http://")
+    elif domain.startswith("www"):
+        domain = domain.strip("www")
+    elif domain.startswith("https://www"):
+        domain = domain.strip("https://www")
+    elif domain.startswith("http://www"):
+        domain = domain.strip("http://www")
 
     response = None
 
@@ -139,21 +178,21 @@ def jarvis4(url):
         https://bit.ly/3t4Shwb will return -1
         '''
         print("Scanning URL for any shortened service...")
-        shortened_domains = ["bit.ly", "goo.gl", "t.co", "tinyurl.com", "ow.ly", "is.gd", "buff.ly", "adf.ly", 
-                            "twitthis.com", "tweez.me", "v.gd", "qr.net", "1url.com", "link.zip.net", "url4.eu", 
-                            "cli.gs", "qr.ae", "fic.kr", "su.pr", "loopt.us", "scrnch.me", "vzturl.com", "tiny.cc", 
-                            "tr.im", "prettylinkpro.com", "cutt.us", "ping.fm", "snipr.com", "snipurl.com", 
-                            "post.ly", "mcaf.ee", "q.gs", "db.tt", "filoops.info", "wp.me", "twurl.nl", "j.mp", 
-                            "x.co", "cur.lv", "rubyurl.com", "kl.am", "yourls.org", "doiop.com", "buzurl.com",
-                            "fb.me", "bkite.com", "yfrog.com", "bit.do", "ow.ly", "bitly.com", "lnkd.in",
-                            "po.st", "u.to", "go2l.ink", "rebrand.ly", "x.co", "rb.gy", "short.to"]
-        
+        shortened_domains = ["bit.ly", "goo.gl", "t.co", "tinyurl.com", "ow.ly", "is.gd", "buff.ly", "adf.ly",
+                             "twitthis.com", "tweez.me", "v.gd", "qr.net", "1url.com", "link.zip.net", "url4.eu",
+                             "cli.gs", "qr.ae", "fic.kr", "su.pr", "loopt.us", "scrnch.me", "vzturl.com", "tiny.cc",
+                             "tr.im", "prettylinkpro.com", "cutt.us", "ping.fm", "snipr.com", "snipurl.com",
+                             "post.ly", "mcaf.ee", "q.gs", "db.tt", "filoops.info", "wp.me", "twurl.nl", "j.mp",
+                             "x.co", "cur.lv", "rubyurl.com", "kl.am", "yourls.org", "doiop.com", "buzurl.com",
+                             "fb.me", "bkite.com", "yfrog.com", "bit.do", "ow.ly", "bitly.com", "lnkd.in",
+                             "po.st", "u.to", "go2l.ink", "rebrand.ly", "x.co", "rb.gy", "short.to"]
+
         shortened_domains_count = 0
         for shortdomain in shortened_domains:
             if re.search(shortdomain, url):
                 shortened_domains_count += 1
                 break
-        
+
         if shortened_domains_count > 1:
             Shortining_Service = -1
             sus_things.append('Shortened detected in url.')
@@ -245,6 +284,7 @@ def jarvis4(url):
         Else, return -1
         '''
         print("Checking Certificate Authority...")
+
         def get_ssl_info(url):
             context = ssl.create_default_context()
             try:
@@ -263,9 +303,8 @@ def jarvis4(url):
         # Example usage:
         issuer, validity_days = get_ssl_info('y8.com')
 
-
-        trusted_cert_authorities = ['DigiCert', 'GlobalSign', 'Verizon', 'Symantec', 'Entrust', 'Comodo', 
-                                    'GoDaddy', 'Network Solutions', 'Thawte', 'GeoTrust', 'IdenTrust', 
+        trusted_cert_authorities = ['DigiCert', 'GlobalSign', 'Verizon', 'Symantec', 'Entrust', 'Comodo',
+                                    'GoDaddy', 'Network Solutions', 'Thawte', 'GeoTrust', 'IdenTrust',
                                     'Google Trust Services LLC', 'Let\'s Encrypt']
 
         if issuer in trusted_cert_authorities and validity_days >= 365:
@@ -289,6 +328,7 @@ def jarvis4(url):
         If domain reg duration is none (whois can't extract info), return 0
         If domain reg duration <= 365 days, return -1
         '''
+
         def get_domain_registration_duration(url):
             try:
                 creation_date = whois.whois(url).creation_date
@@ -381,7 +421,7 @@ def jarvis4(url):
             uncommon_ports_count = 0
 
             # Scan ports 1-500
-            #for port in range(1, 500):
+            # for port in range(1, 500):
             for port in range(1, 10):
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.settimeout(0.5)
@@ -415,7 +455,7 @@ def jarvis4(url):
         If URL starts with http://, return -1
         '''
         print("Checking https token...")
-        if url.startswith("https:"):     
+        if url.startswith("https:"):
             HTTPS_token = 1
             legit_things.append('HTTPS in use.')
         else:
@@ -450,10 +490,10 @@ def jarvis4(url):
                 if parsed_external_url.netloc != parsed_url.netloc:
                     external_count += 1
             try:
-                if external_count/total_urls < 0.22:
+                if external_count / total_urls < 0.22:
                     Request_URL = 1
                     legit_things.append('Most tags loaded internally.')
-                elif 0.22 <= external_count/total_urls <= 0.61:
+                elif 0.22 <= external_count / total_urls <= 0.61:
                     Request_URL = 0
                     sus_things.append('Significant number of tags loaded from external domains.')
                 else:
@@ -611,9 +651,11 @@ def jarvis4(url):
         print(colorama.Fore.MAGENTA + '*' * 70 + colorama.Style.RESET_ALL)
         print(url_data)
 
-        plt.figure(figsize=(55,55))
+        plt.figure(figsize=(55, 55))
         tree = clf.estimators_[0]
         plot_tree(tree, feature_names=X.columns, class_names=['legitimate', 'suspicious'], filled=True)
         plt.savefig("phishing_tree.png", dpi=600)
+        # plt.show()
     except:
         print("\nThe website is suspicious.")
+
