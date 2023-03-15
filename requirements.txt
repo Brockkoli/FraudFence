@@ -14,3 +14,4 @@ tqdm
 httpx
 branca
 prettytable
+seaborn
