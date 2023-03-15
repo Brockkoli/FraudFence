@@ -50,6 +50,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#directory">Directory</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#whois">Whois</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -68,27 +71,14 @@
                     <h2 id="webrisk">Web Risk Rating</h2>
                     <table class="table table-bordered">
                         <tr>
-                            <th style="text-align: center; width: 325px;">Headers</th>
-                            <th style="text-align: center; width: 325px;">Web Risk Rating</td>
+                            <th style="text-align: center; width: 325px; font-weight: bold;">Port Number </th>
+                            <td style="text-align: center; width: 325px; font-weight: bold;"> Port State</td>
                         </tr>
                         {% for header in webrisk_headers %}
                         <tr>
-                            <td style="text-align: center; width: 325px;">{{ header }}</th>
-                            <td style="text-align: center; width: 325px;">{{ webrisk_data[0][loop.index0].value }}</td>
+                            <th class="portscan-header" style="text-align: center; width: 325px;">{{ header }}</th>
+                            <td style="text-align: center; width: 325px;">{{ portscan_data[0][loop.index0].value}}</td>
                         </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-                {% endif %}
-                {% if whois_data %}
-                <div class="table-container">
-                    <h2 id="whois">Whois Information</h2>
-                    <table class="table table-bordered">
-                        {% for header in whois_headers %}
-                            <tr>
-                                <th style="width: 325px;">{{ header }}</th>
-                                <td style="width: 325px;">{{ whois_data[0][loop.index0].value }}</td>
-                            </tr>
                         {% endfor %}
                     </table>
                 </div>
@@ -112,8 +102,8 @@
                     <table class="table table-bordered">
                             {% for header in http_headers %}
                             <tr>
-                                <th>{{ header }}</th>
-                                <td>{{ http_data[0][loop.index0].value }}</td>
+                                <th style="width: 250px;">{{ header }}</th>
+                                <td style="width: 400px;">{{ http_data[0][loop.index0].value }}</td>
                             </tr>
                             {% endfor %}
                     </table>
@@ -195,23 +185,18 @@
                     </table>
                 </div>
                 {% endif %}
-                {% if not ssl_data %}
-                    <h4 id="ssl">No SSL data available</h4>
-                {% endif %}
-                {% if not http_data %}
-                    <h4 id="headers">No headers available</h4>
-                {% endif %}
-                {% if not dns_data %}
-                    <h4 id="dns">No DNS data available</h4>
-                {% endif %}
-                {% if not whois_data %}
-                    <h4 id="whois">No WHOIS data available</h4>
-                {% endif %}
-                {% if not portscan_data %}
-                    <h4 id="portscan">No Portscan available</h4>
-                {% endif %}
-                {% if not tracer_data %}
-                    <h4 id="traceroute">No traceroute available</h4>
+                {% if whois_data %}
+                <div class="table-container">
+                    <h2 id="whois">Whois Information</h2>
+                    <table class="table table-bordered">
+                        {% for header in whois_headers %}
+                            <tr>
+                                <th style="width: 325px;">{{ header }}</th>
+                                <td style="width: 325px;">{{ whois_data[0][loop.index0].value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
                 {% endif %}
                 {% if not directory_data %}
                     <h4 id="directory">No directory scanning available</h4>

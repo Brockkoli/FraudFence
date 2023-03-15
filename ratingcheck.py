@@ -63,5 +63,3 @@ def wrr_check(t):
         results[name] = confidence
 
     print(table)
-    #return the results
-    return results
