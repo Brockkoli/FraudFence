@@ -14,9 +14,11 @@ from tracer import traceroute
 from directory import directory
 from printalloptions import printall
 from ratingcheck import wrr_check
+from jarvis4 import jarvis4
 
 import asyncio
 import colorama
+import subprocess
 
 colorama.init()
 
@@ -33,25 +35,25 @@ def printInputErr():
     print(colorama.Fore.RED + "Please enter a valid URL!" + colorama.Style.RESET_ALL)
     sys.exit(ValueError("[*]Program exited with invalid input.\n"))
 
-# Check validity of URL
-def is_valid_url(url):
-    url_parts = url.split("://")
-    if len(url_parts) > 2:
-        printInputErr()
-    elif len(url_parts) == 2:
-        scheme, url = url_parts
-        if scheme not in ("http", "https"):
-            printInputErr()
-        if "." not in url:
-            printInputErr()
-    elif len(url_parts) == 1:
-        if "." not in url:
-            printInputErr()
-    if url.startswith("www."):
-        url = url[4:]
-    if not url.replace(".", "").isalnum():
-        printInputErr()
-    return True
+# # Check validity of URL
+# def is_valid_url(url):
+#     url_parts = url.split("://")
+#     if len(url_parts) > 2:
+#         printInputErr()
+#     elif len(url_parts) == 2:
+#         scheme, url = url_parts
+#         if scheme not in ("http", "https"):
+#             printInputErr()
+#         if "." not in url:
+#             printInputErr()
+#     elif len(url_parts) == 1:
+#         if "." not in url:
+#             printInputErr()
+#     if url.startswith("www."):
+#         url = url[4:]
+#     if not url.replace(".", "").isalnum():
+#         printInputErr()
+#     return True
 
 fraudFence = True
 
@@ -59,6 +61,7 @@ def printoptions():
     print("\nHere are some options you can perform on: " + colorama.Fore.YELLOW + "\n" + url + colorama.Style.RESET_ALL)
     print(colorama.Fore.CYAN + "*" * 50 + colorama.Style.RESET_ALL)
     print("U. Update URL")
+    print("M. Machine Learning URL Analyser")
     print("1. Whois")
     print("2. Port Scan")
     print("3. DNS Lookup")
@@ -96,12 +99,18 @@ def exitoption():
 
 if fraudFence:
     while fraudFence:
-        is_valid_url(url)
+        # is_valid_url(url)
         printoptions()
         try:
             fraudFence = input("Choose an option to run: ")
             if fraudFence == "u":
                 url = input("Type in the URL: ")
+            elif fraudFence == "m":
+                result = jarvis4(url)
+                checker = checkoption()
+                if checker == False:
+                    fraudFence = None
+                    exitoption()
             elif fraudFence == "1":
                 result = whois_check(url)
                 checker = checkoption()
