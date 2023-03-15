@@ -9,11 +9,9 @@ def dnslookup(domain):
     elif domain.startswith("https://"):
         domain = domain.replace("https://", "", 1)
     elif domain.startswith("http://"):
-        domain = domain.strip("http://")
+        domain = domain.replace("http://", "", 1)
     elif domain.startswith("www"):
-        domain = domain.strip("www")
-    elif domain.startswith("http://www"):
-        domain = domain.strip("http://www")
+        domain = domain.replace("www", "", 1)
 
     colorama.init()
 
@@ -155,4 +153,3 @@ def dnslookup(domain):
     print(colorama.Fore.YELLOW + "-" * 40 + colorama.Style.RESET_ALL)
 
     return dns_records
-

@@ -8,9 +8,11 @@ def wrr_check(t):
     querystring = {"t": t}
 
     headers = {
-        "X-RapidAPI-Key": "cc25bebdb7msha2bdd052afe2a46p12d2eajsn49f67df7252c",
+        "X-RapidAPI-Key": "3050331b8fmsh63e50212984ee13p1b8a2djsn12d21cb50bc0",
         "X-RapidAPI-Host": "wot-web-risk-and-safe-browsing.p.rapidapi.com"
     }
+    #results dictionary to pass to printall
+    results = {}
 
     response = requests.request("GET", url, headers=headers, params=querystring)
 
@@ -24,10 +26,12 @@ def wrr_check(t):
     safety = info["safety"]
     rating = safety["status"]
     rating_color = ""
-    if rating == "SUSPICIOUS":
-        rating_color = "\033[91m"  # red
-    elif rating == "SAFE":
+    if rating == "SAFE":
         rating_color = "\033[92m"  # green
+    elif rating == "NOT_SAFE":
+        rating_color = "\033[91m"  # red 
+    elif rating == "SUSPICIOUS":
+        rating_color = "\033[93m"  # yellow
     else:
         rating_color = "\033[0m"  # default color
 
@@ -45,6 +49,9 @@ def wrr_check(t):
     rating_cell = "{}{}\033[0m".format(rating_color, rating)
 
     table.add_row([url_cell, rating_cell])
+    #get the url and rating and put into results
+    url_name = querystring['t']
+    results[url_name]=rating
 
     # Extract the categories and add them to table
     categories = info["categories"]
@@ -52,5 +59,9 @@ def wrr_check(t):
         name = category["name"]
         confidence = category["confidence"]
         table.add_row([name, confidence])
+        #get the category names and confidence and add to results dictioanry
+        results[name] = confidence
 
     print(table)
+    #return the results
+    return results

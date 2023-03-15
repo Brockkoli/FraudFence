@@ -15,6 +15,9 @@ import ssl
 import whois
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+import colorama
+
+colorama.init()
 
 # Load the dataset
 data = pd.read_csv('phish4.csv')
@@ -35,8 +38,13 @@ clf.fit(X_train, y_train)
 
 # Evaluate model on test set
 y_pred = clf.predict(X_test)
-print("Accuracy: ", accuracy_score(y_test, y_pred))
-print("Confusion Matrix: ")
+print("\nAccuracy: ", accuracy_score(y_test, y_pred))
+
+'''
+[[true_negatives false_positives]
+ [false_negatives true_positives]]
+'''
+print("\nConfusion Matrix: ")
 print(confusion_matrix(y_test, y_pred))
 
 # Get user input
@@ -54,6 +62,12 @@ elif domain.startswith("http://www"):
         domain = domain.strip("http://www")
 
 response = None
+
+# list of suspicious features/characteristics
+sus_things = []
+
+# list of legitimate features/characteristics
+legit_things = []
 
 try:
     response = requests.get(url)
@@ -91,8 +105,10 @@ try:
     # check if the domain is an IP address or a hexadecimal IP address
     if re.match(ip_regex, domainUrl[0]) or re.match(hex_ip_regex, domainUrl[0]):
         having_IP_Address = -1
+        sus_things.append('IP address detected in url.')
     else:
         having_IP_Address = 1
+        legit_things.append('IP address not detected in url.')
 
     '''
     To check the length of URL
@@ -103,10 +119,13 @@ try:
     '''
     if len(url) > 75:
         URL_Length = -1
+        sus_things.append(f'Extremely long url of length {len(url)} detected in url.')
     elif 54 <= len(url) <= 75:
         URL_Length = 0
+        sus_things.append(f'Long url of length {len(url)} detected in url.')
     else:
         URL_Length = 1
+        legit_things.append(f'Normal length of {len(url)} detected in url.')
 
     '''
     To check whether URL is shortened
@@ -121,12 +140,19 @@ try:
                         "x.co", "cur.lv", "rubyurl.com", "kl.am", "yourls.org", "doiop.com", "buzurl.com",
                         "fb.me", "bkite.com", "yfrog.com", "bit.do", "ow.ly", "bitly.com", "lnkd.in",
                         "po.st", "u.to", "go2l.ink", "rebrand.ly", "x.co", "rb.gy", "short.to"]
+    
+    shortened_domains_count = 0
     for shortdomain in shortened_domains:
         if re.search(shortdomain, url):
-            Shortining_Service = -1
+            shortened_domains_count += 1
             break
-        else:
-            Shortining_Service = 1
+    
+    if shortened_domains_count > 1:
+        Shortining_Service = -1
+        sus_things.append('Shortened detected in url.')
+    else:
+        Shortining_Service = 1
+        legit_things.append('Shortening service not used in url.')
 
     '''
     To check whether URL have @ symbol
@@ -135,8 +161,10 @@ try:
     '''
     if '@' in url:
         having_At_Symbol = -1
+        sus_things.append('@ detected in url.')
     else:
         having_At_Symbol = 1
+        legit_things.append('@ not detected in url.')
 
     '''
     To check for “//” in the URL
@@ -150,8 +178,10 @@ try:
         base_url = url.replace("http://", "", 1)
     if '//' in base_url:
         double_slash_redirecting = -1
+        sus_things.append('Additional // detected in url.')
     else:
         double_slash_redirecting = 1
+        legit_things.append('Additional // not detected in url.')
 
     '''
     To check for '-' hyphen in URL
@@ -159,46 +189,56 @@ try:
     https://shopee-payme.com will return -1
     '''
     Prefix_Suffix = np.where(pd.Series(url).str.contains("-").any(), -1, 1)
+    if Prefix_Suffix == -1:
+        sus_things.append('- detected in url.')
+    else:
+        legit_things.append('- detected in url.')
 
     '''
     # To check for number of sub-domains in URL
     # After removing main domain and top level domain, 
-    # If sub-domain == 1, return 1
+    # If 0 <= sub-domain <= 1, return 1
     # If sub-domain == 2, return 0
     # If sub-domain == 3, return -1
     # '''
     # remove the scheme (http, https) if present
     if url.startswith('http://'):
-        url = url[7:]
+        url1 = url[7:]
     elif url.startswith('https://'):
-        url = url[8:]
+        url1 = url[8:]
 
     # split the remaining URL by dots and count the resulting parts
-    parts = url.split('.')
+    parts = url1.split('.')
     num_subdomains = len(parts) - 2  # exclude main domain and TLD
 
-    if num_subdomains == 1:
+    if 0 <= num_subdomains <= 1:
         having_Sub_Domain = 1
+        legit_things.append('Less than 2 sub-domains detected in url.')
     elif num_subdomains == 2:
         having_Sub_Domain = 0
+        sus_things.append('2 sub-domains detected in url.')
     else:
         having_Sub_Domain = -1
+        sus_things.append('More than 2 sub-domains detected in url.')
 
     '''
     To check whether certificate authority is well known and trustworthy
     If CA Is trusted and age of certificate >= 365 days, return 1
-    If CA is trusted and age of certificate <= 365 days, return 0
+    If CA is trusted and age of certificate < 365 days, return 0
     If CA is not trusted, return 0
     Else, return -1
     '''
     def get_ssl_info(url):
         context = ssl.create_default_context()
-        with socket.create_connection((url, 443)) as sock:
-            with context.wrap_socket(sock, server_hostname=url) as ssock:
-                cert = ssock.getpeercert()
-                issuer = dict(x[0] for x in cert['issuer'])
-                validity_end = datetime.datetime.strptime(cert['notAfter'], '%b %d %H:%M:%S %Y %Z')
-                validity_days = (validity_end - datetime.datetime.now()).days
+        try:
+            with socket.create_connection((url, 443)) as sock:
+                with context.wrap_socket(sock, server_hostname=url) as ssock:
+                    cert = ssock.getpeercert()
+                    issuer = dict(x[0] for x in cert['issuer'])
+                    validity_end = datetime.datetime.strptime(cert['notAfter'], '%b %d %H:%M:%S %Y %Z')
+                    validity_days = (validity_end - datetime.datetime.now()).days
+        except:
+            pass
 
         return issuer.get('organizationName', None), validity_days
 
@@ -212,16 +252,18 @@ try:
 
     if issuer in trusted_cert_authorities and validity_days >= 365:
         SSLfinal_State = 1
+        legit_things.append('Trusted CA with validity of more than a year.')
 
-    elif issuer in trusted_cert_authorities and validity_days <= 365:
+    elif issuer in trusted_cert_authorities and validity_days < 365:
         SSLfinal_State = 0
+        sus_things.append('Trusted CA with validity of less than a year.')
 
     elif issuer not in trusted_cert_authorities:
         SSLfinal_State = 0
-
+        sus_things.append('CA not trusted.')
     else:
         SSLfinal_State = -1
-
+        sus_things.append('CA not found.')
 
     '''
     To check domain registration duration of URL
@@ -250,10 +292,13 @@ try:
     print("Domain registration duration:", reg_days, "days")
     if reg_days > 365:
         Domain_registeration_length = 1
+        legit_things.append('Domain registration duration more than a year.')
     elif 0 < reg_days <= 365:
         Domain_registeration_length = -1
+        sus_things.append('Domain registration duration less than a year.')
     else:
         Domain_registeration_length = 0
+        sus_things.append('Domain registration duration not found.')
 
     '''
     To check favicon of URL
@@ -276,8 +321,10 @@ try:
 
         if parsed_url.netloc != parsed_favicon_url.netloc:
             Favicon = -1
+            sus_things.append('Favicon is loaded from external domain.')
         else:
             Favicon = 1
+            legit_things.append('Favicon is loaded from internal domain.')
     else:
         Favicon = 0
     print("Favicon analysed.")
@@ -308,7 +355,8 @@ try:
         uncommon_ports_count = 0
 
         # Scan ports 1-500
-        for port in range(1, 500):
+        #for port in range(1, 500):
+        for port in range(1, 10):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(0.5)
             result = sock.connect_ex((ip_address, port))
@@ -322,12 +370,16 @@ try:
 
         if uncommon_ports_count == 1:
             port = 0
+            sus_things.append('1 uncommon ports found opened.')
         elif uncommon_ports_count > 1:
             port = -1
+            sus_things.append('More than 1 uncommon ports found opened.')
         else:
             port = 1
+            legit_things.append('Common ports found opened.')
     except:
         port = 0
+        sus_things.append('Port scanning not executed on IP.')
 
     print("Finished analysing ports.")
 
@@ -339,8 +391,10 @@ try:
     print("Checking https token...")
     if url.startswith("https:"):     
         HTTPS_token = 1
+        legit_things.append('HTTPS in use.')
     else:
         HTTPS_token = -1
+        sus_things.append('HTTPS not used.')
     print("Finished checking https token.")
 
     '''
@@ -372,12 +426,16 @@ try:
     try:
         if external_count/total_urls < 0.22:
             Request_URL = 1
+            legit_things.append('Most tags loaded internally')
         elif 0.22 <= external_count/total_urls <= 0.61:
             Request_URL = 0
+            sus_things.append('Significant number of tags loaded from external domains')
         else:
             Request_URL = -1
+            sus_things.append('Most tags loaded from external domains')
     except ZeroDivisionError:
         Request_URL = 0
+        sus_things.append('No tags found')
     print("Finished analysing tags.")
 
     '''
@@ -403,10 +461,13 @@ try:
 
     if redirect_count <= 1:
         Redirect = 1
+        sus_things.append('Less than 2 redirects detected.')
     elif 2 <= redirect_count < 4:
         Redirect = 0
+        sus_things.append('More than 1 redirect detected.')
     else:
         Redirect = -1
+        sus_things.append('More than 3 redirects detected.')
     print("Finished looking at redirects.")
 
     '''
@@ -420,8 +481,10 @@ try:
     print("Looking at right-click events...")
     if "event.button==2" in html:
         RightClick = -1
+        sus_things.append('Right-click might be disabled.')
     else:
         RightClick = 1
+        legit_things.append('Right-click not disabled.')
     print("Finished looking at right-click events.")
 
     '''
@@ -442,8 +505,10 @@ try:
 
     if pop_up_text:
         popUpWindow = -1
+        sus_things.append('Pop up windows detected.')
     else:
         popUpWindow = 1
+        legit_things.append('No pop up windows detected.')
     print("Finished looking at popup events.")
 
     '''
@@ -459,9 +524,11 @@ try:
     for iframe in iframes:
         if iframe.has_attr('frameborder'):
             Iframe = -1
+            sus_things.append('iframe tag detected.')
             break
     else:
         Iframe = 1
+        legit_things.append('No iframe tag detected.')
     print("Finished looking at iframe.")
 
     url_data = pd.DataFrame({
@@ -484,13 +551,22 @@ try:
         'Iframe': [Iframe],
     })
 
+    # Print out each characteristics detected
+    print("\nSAFE Characteristics:\n")
+    print(colorama.Fore.GREEN + "\n\t".join(legit_things) + colorama.Style.RESET_ALL)
+    print("\nSUSPICIOUS Characteristics\n")
+    print(colorama.Fore.RED + "\n\t".join(sus_things) + colorama.Style.RESET_ALL)
+
     # Predict label
     prediction = clf.predict(url_data)
     if prediction[0] == -1:
-        print("\nThe website is suspicious.")
+        print(f"\nThe website {url} is " + colorama.Fore.RED + "SUSPICIOUS.\n" + colorama.Style.RESET_ALL)
     else:
-        print("\nThe website is legitimate.")
+        print(f"\nThe website {url} is " + colorama.Fore.GREEN + "LEGITIMATE.\n" + colorama.Style.RESET_ALL)
 
+    # Set display options
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.max_rows', None)
     print(url_data)
 
     plt.figure(figsize=(20,20))

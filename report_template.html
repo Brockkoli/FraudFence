@@ -24,7 +24,10 @@
                     <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#portscan">Port Scan</a>
+                    <a class="nav-link" href="#webrisk">Web Risk Rating</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#whois">Whois</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#ssl">SSL Information</a>
@@ -39,13 +42,13 @@
                     <a class="nav-link" href="#location">Location</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#portscan">Port Scan</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#traceroute">Traceroute</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#directory">Directory</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#whois">Whois</a>
                 </li>
             </ul>
         </div>
@@ -54,25 +57,38 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
-                <img src="fraudfence.png" alt="Example Image" class="img-fluid">
+                <img src="ff.png" alt="Example Image" class="img-fluid">
                 <h1 class="mt-1">Full Report on: <a href="{{ url }}">{{ url }}</a></h1>
             </div>
         </div>
         <div class="row justify-content-center mt-5">
             <div class="col-md-7">
-                {% if portscan_data %}
+                {% if webrisk_data %}
                 <div class="table-container">
-                    <h2 id="portscan">Port Scan Information</h2>
+                    <h2 id="webrisk">Web Risk Rating</h2>
                     <table class="table table-bordered">
                         <tr>
-                            <th style="text-align: center; width: 325px; font-weight: bold;">Port Number </th>
-                            <td style="text-align: center; width: 325px; font-weight: bold;"> Port State</td>
+                            <th style="text-align: center; width: 325px;">Headers</th>
+                            <th style="text-align: center; width: 325px;">Web Risk Rating</td>
                         </tr>
-                        {% for header in portscan_headers %}
+                        {% for header in webrisk_headers %}
                         <tr>
-                            <th class="portscan-header" style="text-align: center; width: 325px;">{{ header }}</th>
-                            <td style="text-align: center; width: 325px;">{{ portscan_data[0][loop.index0].value}}</td>
+                            <td style="text-align: center; width: 325px;">{{ header }}</th>
+                            <td style="text-align: center; width: 325px;">{{ webrisk_data[0][loop.index0].value }}</td>
                         </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                {% endif %}
+                {% if whois_data %}
+                <div class="table-container">
+                    <h2 id="whois">Whois Information</h2>
+                    <table class="table table-bordered">
+                        {% for header in whois_headers %}
+                            <tr>
+                                <th style="width: 325px;">{{ header }}</th>
+                                <td style="width: 325px;">{{ whois_data[0][loop.index0].value }}</td>
+                            </tr>
                         {% endfor %}
                     </table>
                 </div>
@@ -113,12 +129,33 @@
                             {% endfor %}
                     </table>
                 </div>
+                {% endif %}
                 <div class="table-container">
                     <h2 id="location">Server Location Information</h2>
                     <div class="map">
                         {{ map|safe }}
                     </div>
                 </div>
+                {% if portscan_data %}
+                    <div class="table-container">
+                        <h2 id="portscan">Port Scan Information</h2>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="text-align: center; width: 325px;">Port Number</th>
+                                <th style="text-align: center; width: 325px;">Port State</td>
+                            </tr>
+                            {% for header in portscan_headers %}
+                            <tr>
+                                <td class="portscan-header" style="text-align: center; width: 325px;">{{ header }}</td>
+                                {% if portscan_data[0][loop.index0].value == "Open" %}
+                                <td style="text-align: center; width: 325px;" class="text-success">open</td>
+                                {% else %}
+                                <td style="text-align: center; width: 325px;" class="text-danger">closed</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 {% endif %}
                 {% if tracer_data %}
                 <div class="table-container">
@@ -135,10 +172,10 @@
                     <tbody>
                       {% for tracer_tuple in tracer_data %}
                       <tr>
-                            <td style="text-align: center; width: 100px;">{{ tracer_tuple[0]['value'] }}</td>
-                            <td style="text-align: center; width: 300px;">{{ tracer_tuple[1]['value'] }}</td>
-                            <td style="text-align: center; width: 300px;">{{ tracer_tuple[2]['value'] }}</td>
-                            <td style="text-align: center; width: 300px;">{{ tracer_tuple[3]['value'] }}</td>
+                        <td style="text-align: center; width: 100px;">{{ tracer_tuple[0]['value'] }}</td>
+                        <td style="text-align: center; width: 300px;">{{ tracer_tuple[1]['value'] }}</td>
+                        <td style="text-align: center; width: 300px;">{{ tracer_tuple[2]['value'] }}</td>
+                        <td style="text-align: center; width: 300px;">{{ tracer_tuple[3]['value'] }}</td>
                       </tr>
                       {% endfor %}
                     </tbody>
@@ -158,21 +195,26 @@
                     </table>
                 </div>
                 {% endif %}
-                {% if whois_data %}
-                <div class="table-container">
-                    <h2 id="whois">Whois Information</h2>
-                    <table class="table table-bordered">
-                        {% for header in whois_headers %}
-                            <tr>
-                                <th style="width: 325px;">{{ header }}</th>
-                                <td style="width: 325px;">{{ whois_data[0][loop.index0].value }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+                {% if not ssl_data %}
+                    <h4 id="ssl">No SSL data available</h4>
                 {% endif %}
-                {% if not ssl_data and not http_data and not dns_data %}
-                <p>No data available</p>
+                {% if not http_data %}
+                    <h4 id="headers">No headers available</h4>
+                {% endif %}
+                {% if not dns_data %}
+                    <h4 id="dns">No DNS data available</h4>
+                {% endif %}
+                {% if not whois_data %}
+                    <h4 id="whois">No WHOIS data available</h4>
+                {% endif %}
+                {% if not portscan_data %}
+                    <h4 id="portscan">No Portscan available</h4>
+                {% endif %}
+                {% if not tracer_data %}
+                    <h4 id="traceroute">No traceroute available</h4>
+                {% endif %}
+                {% if not directory_data %}
+                    <h4 id="directory">No directory scanning available</h4>
                 {% endif %}
             </div>
         </div>

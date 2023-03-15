@@ -40,4 +40,5 @@ def headers(url):
         print("-" * 50)
         return headers_dict
     except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
+        # print(f"Error: {e}")
+        print("No headers found.\n")

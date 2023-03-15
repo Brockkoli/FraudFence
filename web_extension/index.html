@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FraudFence Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .report {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .section p {
+            margin: 0;
+        }
+
+        .safety {
+            font-weight: bold;
+        }
+
+        .safety--safe {
+            color: green;
+        }
+
+        .safety--unsafe {
+            color: red;
+        }
+
+        .categories {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .categories li {
+            display: inline-block;
+            margin-right: 10px;
+            background-color: #eee;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .categories li.good {
+            background-color: green;
+            color: #fff;
+        }
+
+        .categories li.bad {
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-5">FraudFence Ratings</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="report">
+                    <h2>Checked against Google Safe Browsing database</h2>
+                    <div id="googly" class="section"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="report">
+                    <h2>Checked against Web of Trust (WOT) Machine Learning Algorithms</h2>
+                    <div id="webrisk" class="section"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="googly.js"></script>
+    <script src="webrisk.js"></script>
+    <script src="reputation.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+            integrity="sha384-2Zz/mfyZ+gR1E9gckKjhn8WLeSKerAZvStF3DYqKynoM8V7KmkOszLX5Xq3EdKM2"
+            crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js"
+	integrity="sha384-Q5t5l3+AQ8FhxFnAKyLbMKvCcGYJGgDGi/bfG6HPUgxhJv081g2xs15MVC+0yI1H"
+	crossorigin="anonymous"></script>
+
+</body>
+</html>
+

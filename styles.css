@@ -36,7 +36,7 @@ td {
 }
 
 th {
-    background-color: #36454F;
+    background-color: #36454F !important;
     font-weight: bold;
 }
 
@@ -102,4 +102,12 @@ a {
   .container {
     /* Add margin-top to the content so it doesn't overlap with the fixed navbar */
     margin-top: 60px; /* Adjust this value based on navbar height */
+  }
+
+  .text-success {
+    color: green;
+  }
+  
+  .text-danger {
+    color: red;
   }

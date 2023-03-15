@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FraudFence Report</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+        <a class="navbar-brand" href="#">FraudFence Report</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#webrisk">Web Risk Rating</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#whois">Whois</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#ssl">SSL Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#headers">Headers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#dns">DNS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#location">Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#portscan">Port Scan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#traceroute">Traceroute</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#directory">Directory</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <img src="ff.png" alt="Example Image" class="img-fluid">
+                <h1 class="mt-1">Full Report on: <a href="google.com">google.com</a></h1>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-7">
+                
+                <div class="table-container">
+                    <h2 id="webrisk">Web Risk Rating</h2>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="text-align: center; width: 325px;">Headers</th>
+                            <th style="text-align: center; width: 325px;">Web Risk Rating</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">google.com</th>
+                            <td style="text-align: center; width: 325px;">SAFE</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">good site</th>
+                            <td style="text-align: center; width: 325px;">99</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">online tracking</th>
+                            <td style="text-align: center; width: 325px;">16</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">trusted source</th>
+                            <td style="text-align: center; width: 325px;">11</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">good service</th>
+                            <td style="text-align: center; width: 325px;">8</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">other</th>
+                            <td style="text-align: center; width: 325px;">5</td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align: center; width: 325px;">popular</th>
+                            <td style="text-align: center; width: 325px;">51</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                
+                
+                <div class="table-container">
+                    <h2 id="whois">Whois Information</h2>
+                    <table class="table table-bordered">
+                        
+                            <tr>
+                                <th style="width: 325px;">Domain Name</th>
+                                <td style="width: 325px;">google.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar WHOIS Server</th>
+                                <td style="width: 325px;">whois.markmonitor.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar URL</th>
+                                <td style="width: 325px;">http://www.markmonitor.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Updated Date</th>
+                                <td style="width: 325px;">2019-09-09T15:39:04+0000</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Creation Date</th>
+                                <td style="width: 325px;">1997-09-15T07:00:00+0000</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar Registration Expiration Date</th>
+                                <td style="width: 325px;">2028-09-13T07:00:00+0000</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar</th>
+                                <td style="width: 325px;">MarkMonitor, Inc.</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar IANA ID</th>
+                                <td style="width: 325px;">292</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar Abuse Contact Email</th>
+                                <td style="width: 325px;">abusecomplaints@markmonitor.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrar Abuse Contact Phone</th>
+                                <td style="width: 325px;">+1.2086851750</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Domain Status</th>
+                                <td style="width: 325px;">serverDeleteProhibited (https://www.icann.org/epp#serverDeleteProhibited)</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrant Organization</th>
+                                <td style="width: 325px;">Google LLC</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrant State/Province</th>
+                                <td style="width: 325px;">CA</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrant Country</th>
+                                <td style="width: 325px;">US</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Registrant Email</th>
+                                <td style="width: 325px;">Select Request Email Form at https://domains.markmonitor.com/whois/google.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Admin Organization</th>
+                                <td style="width: 325px;">Google LLC</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Admin State/Province</th>
+                                <td style="width: 325px;">CA</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Admin Country</th>
+                                <td style="width: 325px;">US</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Admin Email</th>
+                                <td style="width: 325px;">Select Request Email Form at https://domains.markmonitor.com/whois/google.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Tech Organization</th>
+                                <td style="width: 325px;">Google LLC</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Tech State/Province</th>
+                                <td style="width: 325px;">CA</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Tech Country</th>
+                                <td style="width: 325px;">US</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Tech Email</th>
+                                <td style="width: 325px;">Select Request Email Form at https://domains.markmonitor.com/whois/google.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th style="width: 325px;">Name Servers</th>
+                                <td style="width: 325px;">ns4.google.com, ns1.google.com, ns2.google.com, ns3.google.com</td>
+                            </tr>
+                        
+                    </table>
+                </div>
+                
+                
+                <div class="table-container">
+                    <h2 id="ssl">SSL Information</h2>
+                    <table class="table table-bordered">
+                        
+                            <tr>
+                                <th>subject</th>
+                                <td>commonName: www.google.com</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>issuer</th>
+                                <td>((('countryName', 'US'),), (('organizationName', 'Google Trust Services LLC'),), (('commonName', 'GTS CA 1C3'),))</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>version</th>
+                                <td>3</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>serialNumber</th>
+                                <td>62D4644194B8824412A8437FDCD69882</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>notBefore</th>
+                                <td>Feb 20 09:15:34 2023 GMT</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>notAfter</th>
+                                <td>May 15 09:15:33 2023 GMT</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>subjectAltName</th>
+                                <td>May 15 09:15:33 2023 GMT</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>OCSP</th>
+                                <td>('http://ocsp.pki.goog/gts1c3',)</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>caIssuers</th>
+                                <td>('http://pki.goog/repo/certs/gts1c3.der',)</td>
+                            </tr>
+                        
+                            <tr>
+                                <th>crlDistributionPoints</th>
+                                <td>('http://crls.pki.goog/gts1c3/moVDfISia2k.crl',)</td>
+                            </tr>
+                        
+                    </table>
+                </div>
+                
+                
+                <div class="table-container">
+                    <h2 id="headers">Headers Information</h2>
+                    <table class="table table-bordered">
+                            
+                            <tr>
+                                <th>Content-Type</th>
+                                <td>text/html; charset=ISO-8859-1</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>P3P</th>
+                                <td>CP="This is not a P3P policy! See g.co/p3phelp for more info."</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Date</th>
+                                <td>Tue, 14 Mar 2023 18:24:07 GMT</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Server</th>
+                                <td>gws</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>X-XSS-Protection</th>
+                                <td>0</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>X-Frame-Options</th>
+                                <td>SAMEORIGIN</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Transfer-Encoding</th>
+                                <td>chunked</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Expires</th>
+                                <td>Tue, 14 Mar 2023 18:24:07 GMT</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Cache-Control</th>
+                                <td>private</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Set-Cookie</th>
+                                <td>1P_JAR=2023-03-14-18; expires=Thu, 13-Apr-2023 18:24:07 GMT; path=/; domain=.google.com; Secure, AEC=ARSKqsL_z0N3cgB_-So_21OTD90GkK3k47Es7oSH1FNtMejRHnFhGf4wEQ; expires=Sun, 10-Sep-2023 18:24:07 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax, NID=511=PV-031bU1X162G3ctxGNUNhch_FHykqlfU53jxunJaYhpk86k8YKKGLH2S5359y5PJVTW5Yy-CJl4tx-0Xv3_9Xo1V500OCupagzNCkQiOwH9Ii9_N_p2c36otF_nWAXLLpUGhm4GCL3KY8O6GY8UScMsorKm-lPjOfuCWsPhH4; expires=Wed, 13-Sep-2023 18:24:07 GMT; path=/; domain=.google.com; HttpOnly</td>
+                            </tr>
+                            
+                            <tr>
+                                <th>Alt-Svc</th>
+                                <td>h3=":443"; ma=2592000,h3-29=":443"; ma=2592000</td>
+                            </tr>
+                            
+                    </table>
+                </div>
+                <div class="table-container">
+                    <h2 id="dns">DNS Information</h2>
+                    <table class="table table-bordered">
+                            
+                    </table>
+                </div>
+                
+                <div class="table-container">
+                    <h2 id="location">Server Location Information</h2>
+                    <div class="map">
+                        <!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_21fc03bc5a4506869d09388d75ae99d1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_21fc03bc5a4506869d09388d75ae99d1" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_21fc03bc5a4506869d09388d75ae99d1 = L.map(
+                "map_21fc03bc5a4506869d09388d75ae99d1",
+                {
+                    center: [1.2897, 103.8501],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 15,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_0ffd916b371eef5bf189c0e11fcd6cf3 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_21fc03bc5a4506869d09388d75ae99d1);
+        
+    
+            var marker_3f229dc06b55a72232154bd9c7099a94 = L.marker(
+                [1.2897, 103.8501],
+                {}
+            ).addTo(map_21fc03bc5a4506869d09388d75ae99d1);
+        
+    
+        var popup_03110c1812f6a3be933df3421a298ff7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_722f42ed26e791b65bcb20ed009b99b3 = $(`<div id="html_722f42ed26e791b65bcb20ed009b99b3" style="width: 100.0%; height: 100.0%;">Server location</div>`)[0];
+                popup_03110c1812f6a3be933df3421a298ff7.setContent(html_722f42ed26e791b65bcb20ed009b99b3);
+            
+        
+
+        marker_3f229dc06b55a72232154bd9c7099a94.bindPopup(popup_03110c1812f6a3be933df3421a298ff7)
+        ;
+
+        
+    
+</script>
+</html>
+                    </div>
+                </div>
+                
+                    <div class="table-container">
+                        <h2 id="portscan">Port Scan Information</h2>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="text-align: center; width: 325px;">Port Number</th>
+                                <th style="text-align: center; width: 325px;">Port State</td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="portscan-header" style="text-align: center; width: 325px;">1</td>
+                                
+                                <td style="text-align: center; width: 325px;" class="text-danger">closed</td>
+                                
+                            </tr>
+                            
+                            <tr>
+                                <td class="portscan-header" style="text-align: center; width: 325px;">2</td>
+                                
+                                <td style="text-align: center; width: 325px;" class="text-danger">closed</td>
+                                
+                            </tr>
+                            
+                            <tr>
+                                <td class="portscan-header" style="text-align: center; width: 325px;">3</td>
+                                
+                                <td style="text-align: center; width: 325px;" class="text-danger">closed</td>
+                                
+                            </tr>
+                            
+                            <tr>
+                                <td class="portscan-header" style="text-align: center; width: 325px;">4</td>
+                                
+                                <td style="text-align: center; width: 325px;" class="text-danger">closed</td>
+                                
+                            </tr>
+                            
+                            <tr>
+                                <td class="portscan-header" style="text-align: center; width: 325px;">5</td>
+                                
+                                <td style="text-align: center; width: 325px;" class="text-danger">closed</td>
+                                
+                            </tr>
+                            
+                        </table>
+                    </div>
+                
+                
+                <div class="table-container">
+                  <h2 id="traceroute">Traceroute Information</h2>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="text-align: center; width: 100px;">TTL</th>
+                        <th style="text-align: center; width: 300px;">IP Address</th>
+                        <th style="text-align: center; width: 300px;">Hostname</th>
+                        <th style="text-align: center; width: 300px;">RTT (ms)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      <tr>
+                        <td style="text-align: center; width: 100px;">1</td>
+                        <td style="text-align: center; width: 300px;">192.168.18.1</td>
+                        <td style="text-align: center; width: 300px;">dsldevice.lan</td>
+                        <td style="text-align: center; width: 300px;">1678818294.266838</td>
+                      </tr>
+                      
+                      <tr>
+                        <td style="text-align: center; width: 100px;">2</td>
+                        <td style="text-align: center; width: 300px;">101.127.244.1</td>
+                        <td style="text-align: center; width: 300px;">101.127.244.1</td>
+                        <td style="text-align: center; width: 300px;">1678818298.851819</td>
+                      </tr>
+                      
+                      <tr>
+                        <td style="text-align: center; width: 100px;">3</td>
+                        <td style="text-align: center; width: 300px;">183.90.44.113</td>
+                        <td style="text-align: center; width: 300px;">183.90.44.113</td>
+                        <td style="text-align: center; width: 300px;">1678818307.934367</td>
+                      </tr>
+                      
+                      <tr>
+                        <td style="text-align: center; width: 100px;">4</td>
+                        <td style="text-align: center; width: 300px;">183.90.44.41</td>
+                        <td style="text-align: center; width: 300px;">183.90.44.41</td>
+                        <td style="text-align: center; width: 300px;">1678818317.034417</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                
+                
+                <div class="table-container">
+                    <h2 id="directory">Directory Buster</h2>
+                    <table class="table table-bordered">
+                            
+                            <tr>
+                                <th>Redirect (Likely to exist)</th>
+                                <td style="width: 475px;">https://www.google.com/profiles</td>
+                            </tr>
+                            
+                    </table>
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</body>

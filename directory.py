@@ -35,9 +35,9 @@ async def directory(base_url):
         print("Directory busting for: " + colorama.Fore.YELLOW + base_url + colorama.Style.RESET_ALL)
         print("\n")
 
-        #wordlist_file = "y8domain.txt" 
+        wordlist_file = "y8domain.txt" 
         #wordlist_file = "directory-list-lowercase-2.3-medium.txt" # 220560 lines
-        wordlist_file = "common.txt" # 4616 lines
+        #wordlist_file = "common.txt" # 4616 lines
         tasks = []
         rate_limit = 10  # Requests per second
         # limit rate limit to be less sus
@@ -120,4 +120,7 @@ async def directory(base_url):
     except KeyboardInterrupt:
             print("\nExiting program...")
             exit()
+
+    except:
+        print(" Directory scanning not available.")
     

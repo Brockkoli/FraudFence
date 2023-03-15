@@ -8,16 +8,19 @@ def format_data(data):
         if isinstance(item, dict):
             row = []
             for key, value in item.items():
-                if value is None:
-                    formatted_value = "N/A"
-                elif isinstance(value, list):
-                    formatted_value = ", ".join(value)
-                elif isinstance(value, tuple) and len(value) == 1 and isinstance(value[0], tuple):
-                    formatted_value = ', '.join([f'{k}: {v}' for k, v in value[0]])
-                elif key == "expires":
-                    formatted_value = datetime.datetime.strptime(value, "%Y%m%d%H%M%S").strftime("%d-%m-%Y")
-                else:
-                    formatted_value = str(value)
+                try:
+                    if value is None:
+                        formatted_value = "N/A"
+                    elif isinstance(value, list):
+                        formatted_value = ", ".join(value)
+                    elif isinstance(value, tuple) and len(value) == 1 and isinstance(value[0], tuple):
+                        formatted_value = ', '.join([f'{k}: {v}' for k, v in value[0]])
+                    elif key == "expires":
+                        formatted_value = datetime.datetime.strptime(value, "%Y%m%d%H%M%S").strftime("%d-%m-%Y")
+                    else:
+                        formatted_value = str(value)
+                except:
+                    pass
                 row.append({'key': key, 'value': formatted_value})
             formatted_data.append(row)
         elif isinstance(item, list):
@@ -25,7 +28,7 @@ def format_data(data):
     return formatted_data
 
 
-def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result,directory_result,whois_result):
+def printall(url, portscan_result, ssl_result, header_result,dns_result,location_result,tracer_result,directory_result,whois_result,webrisk_result):
     # Format the data for the Location report
     latitude, longitude = location_result.split(",")
     # Use latitude and longitude to create a folium map
@@ -39,19 +42,31 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
 
     # Format the data for the portscan report
     portscan_data = format_data([portscan_result])
-    portscan_headers = [item['key'] for item in portscan_data[0]]
+    if portscan_data:
+        portscan_headers = [item['key'] for item in portscan_data[0]]
+    else:
+        portscan_headers = []
 
     # Format the data for the SSL report
     ssl_data = format_data([ssl_result])
-    ssl_headers = [item['key'] for item in ssl_data[0]]
+    if ssl_data:
+        ssl_headers = [item['key'] for item in ssl_data[0]]
+    else:
+        ssl_headers = []
 
     # Format the data for the header report
     http_data = format_data([header_result])
-    http_headers = [item['key'] for item in http_data[0]]
+    if http_data:
+        http_headers = [item['key'] for item in http_data[0]]
+    else:
+        http_headers = []
 
     # Format the data for the DNS report
     dns_data = format_data([dns_result])
-    dns_headers = [item['key'] for item in dns_data[0]]
+    if dns_data:
+        dns_headers = [item['key'] for item in dns_data[0]]
+    else:
+        dns_headers = []
 
     # Format the data for the Traceroute report
     tracer_data = format_data(tracer_result)
@@ -68,7 +83,18 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
         
     # Format the data for the Whois report
     whois_data = format_data([whois_result])
-    whois_headers = [item['key'] for item in whois_data[0]]
+    if whois_data:
+        whois_headers = [item['key'] for item in whois_data[0]]
+    else:
+        whois_headers = []
+
+    # Format the data for the Web Risk Report
+    webrisk_data = format_data([webrisk_result])
+    if webrisk_data:
+        webrisk_headers = [item['key'] for item in webrisk_data[0]]
+    else:
+        whois_headers = []
+    
 
     # Render the template with the data
     output1 = template.render(
@@ -87,7 +113,9 @@ def printall(url, portscan_result, ssl_result, header_result,dns_result,location
         directory_headers = directory_headers,
         directory_data = directory_data,
         whois_headers=whois_headers,
-        whois_data=whois_data
+        whois_data=whois_data,
+        webrisk_headers = webrisk_headers,
+        webrisk_data = webrisk_data
     )
 
     # Save the output to a file

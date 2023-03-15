@@ -59,4 +59,5 @@ def ssl_checker(url):
         print("-" * 66)
 
     except Exception as e:
-        print(f"Error: {e}")
+        # print(f"Error: {e}")
+        print("No SSL information found.\n")

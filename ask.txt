@@ -1,0 +1,32 @@
+I have a dataset for phishing url. These are the columns available in the dataset: 
+	
+url_length, valid_url, at_symbol, sensitive_words_count, path_length, isHttps, nb_dots, nb_hyphens, nb_and, nb_or, nb_www, nb_com, nb_underscore	target
+
+
+Can you create a python program based on machine learning, using the dataset, to detect phishing websites. From the dataset, if target is 1, the website is legitimate, if label is 0, the website is a phishing website. Thereafter, output whether the website is legitimate or suspicious
+
+
+
+I have a dataset for phishing url. These are the columns available in the dataset: 
+	
+Url, Label, having_IP_Address, URL_Length, Shortining_Service, Prefix_Suffix, having_Sub_Domain, URL_Depth, Domain_registeration_length, Favicon, SFH, age_of_domain, DNSRecord, web_traffic
+
+And this is what each column means:
+having_IP_Address: mark as 1 if url contains ip address, and -1 if there is no ip address
+URL length: mark as 1 if url length exceeds 50, 0 if it is between 30 to 50.
+Shortining_Service: mark as 1 if url shortening services have been used
+Prefix_Suffix: mark as 1 if url have prefix and suffix, if not -1
+having_Sub_Domain: mark as 1 if url have too many subdomains
+Domain_registeration_length: Scan any suspicious behaviors related to domain registration details.
+Favicon: Scan any suspicious behaviors related to favicons.
+SFH: 1 if there is sfh
+age_of_domain: 1 if the age of domain is less than a year
+DNSRecord: 1 if there is dns record
+web_traffic: response code 200
+
+
+Can you create a python program based on machine learning, using the dataset, to detect phishing websites. The program will ask for url input. From the dataset, if Label is 0, the website is legitimate, if label is 1, the website is a phishing website. Thereafter, output whether the website is legitimate or suspicious, also output the random forest classifier tree diagram
+
+
+
+index	having_IPhaving_IP_Address	URLURL_Length	Shortining_Service	having_At_Symbol	double_slash_redirecting	Prefix_Suffix	having_Sub_Domain	SSLfinal_State	Domain_registeration_length	Favicon	port	HTTPS_token	Request_URL	URL_of_Anchor	Links_in_tags	SFH	Submitting_to_email	Abnormal_URL	Redirect	on_mouseover	RightClick	popUpWidnow	Iframe	age_of_domain	DNSRecord	web_traffic	Page_Rank	Google_Index	Links_pointing_to_page	Statistical_report	Result
