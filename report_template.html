@@ -27,6 +27,9 @@
                     <a class="nav-link" href="#webrisk">Web Risk Rating</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#ml">Machine Learning Information</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#whois">Whois</a>
                 </li>
                 <li class="nav-item">
@@ -79,7 +82,55 @@
                         {% endfor %}
                     </table>
                 </div>
+            </div>
+        </div>
                 {% endif %}
+        
+
+                    <h2 id="ml">Machine Learning Information</h2>
+                    <div class="row">
+                        <div class="col">
+                            <img src="roc.png" onclick="openModal('roc.png','Receiver Operating Characteristics (ROC) curve')" alt="receiver operating characteristics curve">
+                        </div>
+                        <div class="col">
+                            <img src="confusion_matrix.png" onclick="openModal('confusion_matrix.png','Confusion Matrix')" alt="confusion matrix">
+                        </div>
+                        <div class="col">
+                            <img src="feature.png" onclick="openModal('feature.png','Feature Importance Plot')" alt="feature importance plot">
+                        </div>
+                    </div>
+                
+                    <div id="myModal" class="modal">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <img class="modal-content" id="modalImg">
+                        <div class="modal-caption" id="caption"></div>
+                    </div>
+                
+                    <script>
+                        function openModal(imgSrc, imgCaption) {
+                            var modal = document.getElementById("myModal");
+                            var modalImg = document.getElementById("modalImg");
+                            var captionText = document.getElementById("caption");
+
+                            modal.style.display = "block";
+                            modalImg.src = imgSrc;
+                            captionText.innerHTML = imgCaption;
+
+                            // Add event listener to close modal on click anywhere
+                        modal.addEventListener('click', closeModal);
+                        }
+
+                        function closeModal() {
+                            var modal = document.getElementById("myModal");
+                            modal.style.display = "none";
+
+                            // Remove event listener to prevent closing on clicking on the image
+                            modal.removeEventListener('click', closeModal);
+                        }
+                    </script>
+
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-12">
                 {% if whois_data %}
                 <div class="table-container">
                     <h2 id="whois">Whois Information</h2>
