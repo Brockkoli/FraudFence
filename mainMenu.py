@@ -18,7 +18,6 @@ from jarvis4 import jarvis4
 
 import asyncio
 import colorama
-import subprocess
 
 colorama.init()
 
@@ -100,6 +99,8 @@ def exitoption():
 if fraudFence:
     while fraudFence:
         # is_valid_url(url)
+        # jarvis4(url)
+
         printoptions()
         try:
             fraudFence = input("Choose an option to run: ")
@@ -175,7 +176,9 @@ if fraudFence:
                 directory_result = asyncio.run(directory(url))
                 whois_result = whois_check(url)
                 webrisk_result = wrr_check(url)
-                printall(url,portscan_result,ssl_result,header_result,dns_result,location_result,tracer_result,directory_result,whois_result,webrisk_result)
+                jarvis_result = jarvis4(url)
+                printall(url,portscan_result,ssl_result,header_result,dns_result,location_result,tracer_result,directory_result,whois_result,webrisk_result,jarvis_result)
+                
             elif fraudFence == "11":
                 fraudFence = None
                 exitoption()
