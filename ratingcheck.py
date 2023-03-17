@@ -5,10 +5,21 @@ from prettytable import PrettyTable
 def wrr_check(t):
     url = "https://wot-web-risk-and-safe-browsing.p.rapidapi.com/targets"
 
+    if t.startswith("https://www"):
+        t = t.replace("https://www.", "", 1)
+    elif t.startswith("http://www"):
+        t = t.replace("http://www.", "", 1)
+    elif t.startswith("https://"):
+        t = t.replace("https://", "", 1)
+    elif t.startswith("http://"):
+        t = t.replace("http://", "", 1)
+    elif t.startswith("www"):     
+        t = t.replace("www", "", 1)
+        
     querystring = {"t": t}
 
     headers = {
-        "X-RapidAPI-Key": "3050331b8fmsh63e50212984ee13p1b8a2djsn12d21cb50bc0",
+        "X-RapidAPI-Key": "4d7f248225msh8330488899b3702p1952d6jsn45ec3e63824c",
         "X-RapidAPI-Host": "wot-web-risk-and-safe-browsing.p.rapidapi.com"
     }
     #results dictionary to pass to printall
@@ -63,3 +74,5 @@ def wrr_check(t):
         results[name] = confidence
 
     print(table)
+    #return the results
+    return results
