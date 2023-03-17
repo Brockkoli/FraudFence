@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score, roc_curve
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, learning_curve
 from sklearn.tree import export_graphviz
 import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
@@ -59,34 +59,73 @@ def jarvis4(url):
     fpr, tpr, thresholds = roc_curve(y_test, y_pred)
 
     # plot ROC curve
-    plt.plot(fpr, tpr)
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curve')
-    plt.savefig('roc.png')
+    roc = plt
+    roc.figure()
+    roc.plot(fpr, tpr)
+    roc.xlabel('False Positive Rate')
+    roc.ylabel('True Positive Rate')
+    roc.title('ROC Curve')
+    roc.savefig('roc.png')
     print("Plotting ROC curve.")
-    plt.show()
 
     # plot the confusion matrix
+    cmat = plt
+    cmat.figure()
     sns.heatmap(cm, annot=True, cmap="Blues", fmt="d")
-    plt.title("Confusion Matrix")
-    plt.xlabel("Predicted Class")
-    plt.ylabel("True Class")
+    cmat.title("Confusion Matrix")
+    cmat.xlabel("Predicted Class")
+    cmat.ylabel("True Class")
     # save the plot as an image file
-    plt.savefig('confusion_matrix.png')
+    cmat.savefig('confusion_matrix.png')
     print("Plotting the Confusion Matrix.")
-    plt.show()
 
     # Plot feature importances
+    feature = plt
+    feature.figure(figsize=(28, 21))
     importances = clf.feature_importances_
     feature_names = X.columns
-    plt.barh(feature_names, importances)
-    plt.xlabel("Feature importance")
-    plt.ylabel("Feature name")
-    plt.title("Random Forest Classifier Feature Importances")
-    plt.savefig('feature.png')
-    print("Plotting the Random Forest Classifier Feature Importances.")
-    plt.show()
+    feature.barh(feature_names, importances)
+    feature.xlabel("Feature importance")
+    feature.ylabel("Feature name")
+    feature.title("Random Forest Classifier Feature Importances")
+    feature.savefig('feature.png')
+    print("Plotting the Random Forest Classifier Feature Importances.\n")
+
+    # Plot the learning curves
+    # Calculate learning curve scores
+    train_sizes, train_scores, test_scores = learning_curve(
+        clf, X_train, y_train, cv=5, scoring='accuracy', n_jobs=-1)
+
+    # Plot learning curves
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+
+    plt.figure()
+    plt.title("Learning Curve")
+    plt.xlabel("Training Examples")
+    plt.ylabel("Score")
+    plt.ylim(0.0, 1.1)
+    plt.grid()
+
+    plt.fill_between(train_sizes, train_scores_mean - train_scores_std,
+                     train_scores_mean + train_scores_std, alpha=0.1,
+                     color="r")
+    plt.fill_between(train_sizes, test_scores_mean - test_scores_std,
+                     test_scores_mean + test_scores_std, alpha=0.1, color="g")
+    plt.plot(train_sizes, train_scores_mean, 'o-', color="r",
+             label="Training score")
+    plt.plot(train_sizes, test_scores_mean, 'o-', color="g",
+             label="Cross-validation score")
+
+    plt.legend(loc="best")
+    
+    plt.title("Learning Curve")
+    plt.savefig('learning_curve.png')
+    learning_curve_plot = plt
+    print("Plotting the Learning Curve.\n")
+    # learning_curve_plot.show()
 
     # Get user input
     domain = url
@@ -244,7 +283,7 @@ def jarvis4(url):
         if Prefix_Suffix == -1:
             sus_things.append('Hyphen (-) detected in url.')
         else:
-            legit_things.append('Hyphen (-) detected in url.')
+            legit_things.append('Hyphen (-) not detected in url.')
         print("Finished scanning for hyphen (-) symbol in URL.")
 
         '''
@@ -645,17 +684,24 @@ def jarvis4(url):
         else:
             print(f"\nThe website {url} is " + colorama.Fore.GREEN + "LEGITIMATE.\n" + colorama.Style.RESET_ALL)
 
+
         # Set display options
         pd.set_option('display.max_columns', None)
         pd.set_option('display.max_rows', None)
-        print(colorama.Fore.MAGENTA + '*' * 70 + colorama.Style.RESET_ALL)
-        print(url_data)
+        print(colorama.Fore.MAGENTA + '*' * 50 + colorama.Style.RESET_ALL)
+        # print(url_data)
 
-        plt.figure(figsize=(55, 55))
-        tree = clf.estimators_[0]
-        plot_tree(tree, feature_names=X.columns, class_names=['legitimate', 'suspicious'], filled=True)
-        plt.savefig("phishing_tree.png", dpi=600)
-        # plt.show()
+        # # Plot decision tree
+        # plt.figure(figsize=(55, 30))
+        # tree = clf.estimators_[0]
+        # plot_tree(tree, feature_names=X.columns, class_names=['legitimate', 'suspicious'], filled=True)
+        # plt.title("Random Forest Decision Tree")
+        # plt.savefig("phishing_tree.png", dpi=600)
+        # print("Decision tree image created!")
+        # # plt.show()
+
     except:
         print("\nThe website is suspicious.")
+
+    return(legit_things, sus_things)
 
