@@ -1,32 +1,7 @@
 
 #  FraudFence
 
-    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::.
- .*@########################################################%%-
- -@+                        ..     .                         %*
- =@+                      =%%%%**#@%@*                       %#
- =@+                     *@+  .#@-  :%%:                     %#
- =@+                   :#%-    #@.   .*%-                    %#
- =@+                  -%@:     #@.     =@*.                  %#
- =@+             -+*%@#*#%%#+=:#@-:=+*#%%#%%#+-              %#
- =@+            .*%@%+=:. .:=+#%@#*+=-: .:-+%@@-             %#
- =@+                :-+@@%#+-:   .:-+*#%@#*=-:               %#
- =@%*********          *@=:=*#%@@%#*=--%#          -*********@#
- =@*::::::::.          .#%-          :%%.           :::::::::%#
- =@@%%%%%. *#.      .-===%@+        =@@+==-.       =%. =%%%%%@#
- =@+              -*%#%@#++%#=.  .=#@+++@@%@#-               %#
- =@+           :*@#=. .+%%=.=*%@@%#=..+%#-  =#@*-            %#
- =@+          :%@#:      =%%=      .+%#-     :*@@=           %#
- =@+            :=#%#+-    :#%+: -*%+:   .=*%*=:             %#
- =@+              .+@%#@#=:  .+%@%=   :=%%%@*.               %#
- =@+            -#@*-  .-#@=   #@.   =@#:  :+%#-             %#
- =@*::::::::::=%@*-::::::+@*:::#@-:::+@+:::::-*@%+:::::::::::%#
- =@%#########################################################@#
- :%%========================================================+@=
-  .-========================@%===*@#========================-:
-                            @%   =@+
-                       :====@%===*@#====-
-                       -++++++++++++++++=
+![fraudfence](https://user-images.githubusercontent.com/59412437/226162743-24600967-2a30-4da8-9330-568071baf2dd.png)
 
 FraudFence, a machine learning tool designed to detect phishing websites by analysing their features. FraudFence includes various website reconnaissance features, such as Whois lookup, port scanning, DNS lookup, server location checking, web header checking, SSL information, trace route, directory busting, and web risk rating. The tool uses a random forest classifier to analyse website features and determine their legitimacy. 
 > **Note:** This is an assignment project for  **ICT 2206 Web Security** 
@@ -87,7 +62,6 @@ To use FraudFence, simply enter the URL of the website you want to analyse in th
 
 
 ## Demonstration
+(![fraudfence demo](https://user-images.githubusercontent.com/59412437/226162859-91213ea5-689b-4193-93d9-eb07b06f5168.png)
+)(https://youtu.be/0g-ZL4VgCrQ)
 
-![fraudfence](https://user-images.githubusercontent.com/59412437/226161779-ba563733-be62-4296-aa74-e4b4b8a3ed18.png)
-
-([https://www.youtube.com/watch?v=JLMbpiywVxQ](https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher))
