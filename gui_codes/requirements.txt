@@ -1,7 +1,0 @@
-bs4
-whois
-pyfiglet
-termcolor
-webbrowser
-folium
-requests
