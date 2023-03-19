@@ -11,9 +11,10 @@ FraudFence can be installed locally by following these steps:
 ``` git clone https://github.com/Brockkoli/FraudFence.git```
 2.   Install the required dependencies listed in `requirements.txt`.
 
-``` cd FraudFence```
+   ``` cd FraudFence```
 
-```pip install -r requirements.txt```
+   ```pip install -r requirements.txt```
+
 3.  Run `python mainMenu.py` to start the application.
 
 ## Features
