@@ -59,4 +59,6 @@ To use FraudFence, simply enter the URL of the website you want to analyse in th
 
 
 ## Demonstration
-[![IMAGE ALT TEXT HERE]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE](https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher)/0.jpg)]([https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE](https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher))
+[![FraudFence Demonstration]
+(![fraudfence](https://user-images.githubusercontent.com/59412437/226161779-ba563733-be62-4296-aa74-e4b4b8a3ed18.png)
+([https://www.youtube.com/watch?v=JLMbpiywVxQ](https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher))
