@@ -1,13 +1,5 @@
-//const fetch = require('node-fetch');
-
 // Google Safe Browsing API key
 const API_KEY = "AIzaSyCHxpPr1VQSqpxwgnG3im7_blJxFy-y8Tg";
-
-// The URL to check
-// const url1 = "http://protintlab.com/";  // unsafe url
-// const url = "http://flirteas.za.com/"; // unsafe url
-// const url1 = "https://y8.com/";
-// https://www.oricoe-co-jp.oriseco.pbnice.top/ai/kal.php //test
 
 // Get the current tab
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
