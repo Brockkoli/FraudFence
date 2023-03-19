@@ -1,6 +1,33 @@
 
 #  FraudFence
 
+    ::::::::::::::::::::::::::::::::::::::::::::::::::::::::.
+ .*@########################################################%%-
+ -@+                        ..     .                         %*
+ =@+                      =%%%%**#@%@*                       %#
+ =@+                     *@+  .#@-  :%%:                     %#
+ =@+                   :#%-    #@.   .*%-                    %#
+ =@+                  -%@:     #@.     =@*.                  %#
+ =@+             -+*%@#*#%%#+=:#@-:=+*#%%#%%#+-              %#
+ =@+            .*%@%+=:. .:=+#%@#*+=-: .:-+%@@-             %#
+ =@+                :-+@@%#+-:   .:-+*#%@#*=-:               %#
+ =@%*********          *@=:=*#%@@%#*=--%#          -*********@#
+ =@*::::::::.          .#%-          :%%.           :::::::::%#
+ =@@%%%%%. *#.      .-===%@+        =@@+==-.       =%. =%%%%%@#
+ =@+              -*%#%@#++%#=.  .=#@+++@@%@#-               %#
+ =@+           :*@#=. .+%%=.=*%@@%#=..+%#-  =#@*-            %#
+ =@+          :%@#:      =%%=      .+%#-     :*@@=           %#
+ =@+            :=#%#+-    :#%+: -*%+:   .=*%*=:             %#
+ =@+              .+@%#@#=:  .+%@%=   :=%%%@*.               %#
+ =@+            -#@*-  .-#@=   #@.   =@#:  :+%#-             %#
+ =@*::::::::::=%@*-::::::+@*:::#@-:::+@+:::::-*@%+:::::::::::%#
+ =@%#########################################################@#
+ :%%========================================================+@=
+  .-========================@%===*@#========================-:
+                            @%   =@+
+                       :====@%===*@#====-
+                       -++++++++++++++++=
+
 FraudFence, a machine learning tool designed to detect phishing websites by analysing their features. FraudFence includes various website reconnaissance features, such as Whois lookup, port scanning, DNS lookup, server location checking, web header checking, SSL information, trace route, directory busting, and web risk rating. The tool uses a random forest classifier to analyse website features and determine their legitimacy. 
 > **Note:** This is an assignment project for  **ICT 2206 Web Security** 
 
