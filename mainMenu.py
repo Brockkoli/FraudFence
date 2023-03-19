@@ -34,26 +34,6 @@ def printInputErr():
     print(colorama.Fore.RED + "Please enter a valid URL!" + colorama.Style.RESET_ALL)
     sys.exit(ValueError("[*]Program exited with invalid input.\n"))
 
-# # Check validity of URL
-# def is_valid_url(url):
-#     url_parts = url.split("://")
-#     if len(url_parts) > 2:
-#         printInputErr()
-#     elif len(url_parts) == 2:
-#         scheme, url = url_parts
-#         if scheme not in ("http", "https"):
-#             printInputErr()
-#         if "." not in url:
-#             printInputErr()
-#     elif len(url_parts) == 1:
-#         if "." not in url:
-#             printInputErr()
-#     if url.startswith("www."):
-#         url = url[4:]
-#     if not url.replace(".", "").isalnum():
-#         printInputErr()
-#     return True
-
 fraudFence = True
 
 def printoptions():
@@ -177,6 +157,7 @@ if fraudFence:
                 whois_result = whois_check(url)
                 webrisk_result = wrr_check(url)
                 jarvis_result = jarvis4(url)
+
                 printall(url,portscan_result,ssl_result,header_result,dns_result,location_result,tracer_result,directory_result,whois_result,webrisk_result,jarvis_result)
                 
             elif fraudFence == "11":
