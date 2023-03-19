@@ -1,7 +1,8 @@
 
 #  FraudFence
 
-![fraudfence](https://user-images.githubusercontent.com/59412437/226162743-24600967-2a30-4da8-9330-568071baf2dd.png)
+![fraudfence](https://user-images.githubusercontent.com/59412437/226162896-4019fb74-49c0-446f-8659-7812de5510ee.png)
+
 
 FraudFence, a machine learning tool designed to detect phishing websites by analysing their features. FraudFence includes various website reconnaissance features, such as Whois lookup, port scanning, DNS lookup, server location checking, web header checking, SSL information, trace route, directory busting, and web risk rating. The tool uses a random forest classifier to analyse website features and determine their legitimacy. 
 > **Note:** This is an assignment project for  **ICT 2206 Web Security** 
