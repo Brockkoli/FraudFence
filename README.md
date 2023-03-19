@@ -48,7 +48,7 @@ FraudFence can be installed locally by following these steps:
 - Graphical User Interface
 
 	![guigif](https://user-images.githubusercontent.com/59412437/226161565-2c7ce0cc-8769-4622-a45d-ad5a1c2937c1.gif)
-- Chrome extension!
+- Chrome extension
 
 	![guigif](https://user-images.githubusercontent.com/59412437/226160943-bdf7c693-aee9-4733-ac52-5b12f50eaf6d.gif)
   - Google safe browsing
