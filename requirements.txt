@@ -14,5 +14,9 @@ tqdm
 httpx
 branca
 prettytable
+scapy
+pandas
+sklearn
+matplotlib
 seaborn
 pysimplegui
