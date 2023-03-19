@@ -6,21 +6,21 @@ def whois_check(domain):
         colorama.init()
         url = "https://whoisapi-whois-v2-v1.p.rapidapi.com/whoisserver/WhoisService"
 
-        if domain.startswith("https://"):
-                domain = domain.strip("https://")
-        elif domain.startswith("http://"):
-                domain = domain.strip("http://")
-        elif domain.startswith("www"):
-                domain = domain.strip("www")
-        elif domain.startswith("https://www"):
-                domain = domain.strip("https://www")
+        if domain.startswith("https://www"):
+            domain = domain.replace("https://www.", "", 1)
         elif domain.startswith("http://www"):
-                domain = domain.strip("http://www")
+            domain = domain.replace("http://www.", "", 1)
+        elif domain.startswith("https://"):
+            domain = domain.replace("https://", "", 1)
+        elif domain.startswith("http://"):
+            domain = domain.replace("http://", "", 1)
+        elif domain.startswith("www"):     
+            domain = domain.replace("www", "", 1)
 
         querystring = {"domainName":f"{domain}","apiKey":"at_SDpAVjCNg3tXpSyM66qqcKkPyJSTJ","outputFormat":"XML","da":"0","ipwhois":"1","thinWhois":"0","_parse":"0","preferfresh":"0","checkproxydata":"0","ip":"1"}
 
         headers = {
-                "X-RapidAPI-Key": "81c0482df8msh514a1a1beae15f7p1637ccjsnfcaa82735744",
+                "X-RapidAPI-Key": "1451a54239msh9a771e3bcb0b237p16e5dfjsn9841522a43b3",
                 "X-RapidAPI-Host": "whoisapi-whois-v2-v1.p.rapidapi.com"
         }
 
