@@ -1,20 +1,5 @@
 //WOT Web Risk and Safe browsing
 
-//const readline = require('readline').createInterface({
-  //input: process.stdin,
- // output: process.stdout
-//});
-
-//readline.question('Enter your input: ', (input) => {
-  //console.log(`You entered: ${input}`);
-  //readline.close();
-//});
-// const fetch = require('node-fetch');
-
-// const url = "http://flirteas.za.com/"
-// const url = "http://www.y8.com"
-
-
 // Get the current tab
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   // Get the URL of the current tab
@@ -28,7 +13,7 @@ async function fetchData(url) {
   const options = {
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '3050331b8fmsh63e50212984ee13p1b8a2djsn12d21cb50bc0',
+      'X-RapidAPI-Key': '1451a54239msh9a771e3bcb0b237p16e5dfjsn9841522a43b3',
       'X-RapidAPI-Host': 'wot-web-risk-and-safe-browsing.p.rapidapi.com'
     }
   };
@@ -79,34 +64,6 @@ async function fetchData(url) {
           <p>No data found for ${url}.</p>
           `;
       }
-      /*
-      // iterate elements of objects and display individually
-      document.getElementById('json-data').innerHTML = `
-      <p>Target: ${target}</p>
-      <p>Safety: ${
-        Object.entries(safety)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('<br>')
-      }</p>
-      <p>Child Safety: ${
-        Object.entries(childSafety)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('<br>')
-      }</p>
-      <p>Categories: ${
-        categories
-          .map(category => category.name)
-          .join(', ')
-      }</p>
-    `;
-    */
-
-    /*
-    // for testing
-    console.log(target)
-    console.log(safety)
-    console.log(childSafety)
-    console.log(categories) */
       
     })
     .catch((err) => console.error(err));
