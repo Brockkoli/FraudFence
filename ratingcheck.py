@@ -19,7 +19,7 @@ def wrr_check(t):
     querystring = {"t": t}
 
     headers = {
-        "X-RapidAPI-Key": "4d7f248225msh8330488899b3702p1952d6jsn45ec3e63824c",
+        "X-RapidAPI-Key": "1451a54239msh9a771e3bcb0b237p16e5dfjsn9841522a43b3",
         "X-RapidAPI-Host": "wot-web-risk-and-safe-browsing.p.rapidapi.com"
     }
     #results dictionary to pass to printall
