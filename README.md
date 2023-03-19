@@ -63,6 +63,6 @@ To use FraudFence, simply enter the URL of the website you want to analyse in th
 
 
 ## Demonstration
-(![fraudfence demo](https://user-images.githubusercontent.com/59412437/226162859-91213ea5-689b-4193-93d9-eb07b06f5168.png)
-)(https://youtu.be/0g-ZL4VgCrQ)
+
+[![fraudfence demo](https://user-images.githubusercontent.com/59412437/226162859-91213ea5-689b-4193-93d9-eb07b06f5168.png)](https://youtu.be/0g-ZL4VgCrQ)
 
