@@ -36,14 +36,17 @@ FraudFence can be installed locally by following these steps:
 	- register for an API key here: https://rapidapi.com/mywot-mywot-default/api/wot-web-risk-and-safe-browsing
 -   Print report
 	- generate as report.html
-  ![report](https://user-images.githubusercontent.com/59412437/226161527-238ee2f6-b5c7-444b-a6cc-b66109982824.gif)
+
+  	![report](https://user-images.githubusercontent.com/59412437/226161527-238ee2f6-b5c7-444b-a6cc-b66109982824.gif)
 -   Machine learning URL analyser
 
 ### Proof of Concepts
 - Graphical User Interface
-![guigif](https://user-images.githubusercontent.com/59412437/226161565-2c7ce0cc-8769-4622-a45d-ad5a1c2937c1.gif)
+
+	![guigif](https://user-images.githubusercontent.com/59412437/226161565-2c7ce0cc-8769-4622-a45d-ad5a1c2937c1.gif)
 - Chrome extension!
-[ext](https://user-images.githubusercontent.com/59412437/226160943-bdf7c693-aee9-4733-ac52-5b12f50eaf6d.gif)
+
+	[ext](https://user-images.githubusercontent.com/59412437/226160943-bdf7c693-aee9-4733-ac52-5b12f50eaf6d.gif)
   - Google safe browsing
     - register for an API key here: https://developers.google.com/safe-browsing/v4
   - Web of Trust (WOT) database
@@ -56,5 +59,4 @@ To use FraudFence, simply enter the URL of the website you want to analyse in th
 
 
 ## Demonstration
-
-https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher
+[![IMAGE ALT TEXT HERE]([https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE](https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher)/0.jpg)]([https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE](https://www.youtube.com/watch?v=0g-ZL4VgCrQ&t=328s&ab_channel=pwnisher))
